@@ -374,6 +374,10 @@ Patch1000: debrand-single-cpu.patch
 Patch1001: debrand-rh_taint.patch
 Patch1002: debrand-rh-i686-cpu.patch
 
+# ClearOS patches (80000+)
+Patch80000: linux-3.10-imq.diff
+# end of ClearOS patches
+
 BuildRoot: %{_tmppath}/kernel-%{KVRA}-root
 
 %description
@@ -678,6 +682,13 @@ ApplyOptionalPatch debrand-rh-i686-cpu.patch
 # End of CentOS Modification
 
 ApplyOptionalPatch linux-kernel-test.patch
+
+# ClearOS patches (80000+)
+# MUST be called *before* Makefile.config runs below!
+%ifarch x86_64
+ApplyOptionalPatch linux-3.10-imq.diff
+%endif
+# end of ClearOS patches
 
 # Any further pre-build tree manipulations happen here.
 
@@ -1500,6 +1511,9 @@ fi
 %kernel_variant_files %{with_kdump} kdump
 
 %changelog
+* Wed May 20 2015 ClearFoundation <developer@clearfoundation.com> [3.10.0-229.4.2.v7]
+- Add IMQ patch
+
 * Tue May 12 2015 Johnny Hughes <johnny@centos.org> [3.10.0-229.4.2.el7]
 - Apply debranding changes
 
