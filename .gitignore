@@ -5,3 +5,5 @@ SOURCES/rhelkpatch1.x509
 SOURCES/centos-kpatch.x509
 SOURCES/centos-ldup.x509
 SOURCES/centos.cer
+/Makefile
+*.src.rpm
