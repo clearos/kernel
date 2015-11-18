@@ -1510,10 +1510,6 @@ fi
 %kernel_variant_files %{with_debug} debug
 %kernel_variant_files %{with_kdump} kdump
 
-%changelog
-* Thu Jun 25 2015 ClearFoundation <developer@clearfoundation.com> [3.10.0-229.7.2.v7]
-- Add IMQ patch
-
 * Tue Jun 23 2015 Johnny Hughes <johnny@centos.org> [3.10.0-229.7.2.el7]
 - Apply debranding changes
 
