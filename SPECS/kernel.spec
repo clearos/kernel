@@ -382,7 +382,7 @@ Patch1001: debrand-rh_taint.patch
 Patch1002: debrand-rh-i686-cpu.patch
 
 # ClearOS patches (80000+)
-Patch80000: linux-3.10-imq.diff
+Patch80000: linux-4.1-imq.diff
 # end of ClearOS patches
 
 BuildRoot: %{_tmppath}/kernel-%{KVRA}-root
@@ -657,12 +657,6 @@ ApplyPatch()
   if [ ! -f $RPM_SOURCE_DIR/$patch ]; then
     exit 1
   fi
-  if ! grep -E "^Patch[0-9]+: $patch\$" %{_specdir}/${RPM_PACKAGE_NAME%%%%%{?variant}}.spec ; then
-    if [ "${patch:0:8}" != "patch-3." ] ; then
-      echo "ERROR: Patch  $patch  not listed as a source patch in specfile"
-      exit 1
-    fi
-  fi 2>/dev/null
   case "$patch" in
   *.bz2) bunzip2 < "$RPM_SOURCE_DIR/$patch" | $patch_command ${1+"$@"} ;;
   *.gz) gunzip < "$RPM_SOURCE_DIR/$patch" | $patch_command ${1+"$@"} ;;
@@ -699,7 +693,7 @@ ApplyOptionalPatch debrand-rh-i686-cpu.patch
 # ClearOS patches (80000+)
 # MUST be called *before* Makefile.config runs below!
 %ifarch x86_64
-ApplyOptionalPatch linux-3.10-imq.diff
+ApplyOptionalPatch linux-4.1-imq.diff
 %endif
 # end of ClearOS patches
 
