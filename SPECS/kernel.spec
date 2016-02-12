@@ -12,7 +12,7 @@ Summary: The Linux kernel
 %global distro_build 327
 
 %define rpmversion 3.10.0
-%define pkgrelease 327.3.1.el7
+%define pkgrelease 327.4.5.el7
 
 %define pkg_release %{pkgrelease}%{?buildid}
 
@@ -1541,8 +1541,23 @@ fi
 %kernel_variant_files %{with_kdump} kdump
 
 %changelog
-* Tue Dec 08 2015 CentOS Sources <bugs@centos.org> - 3.10.0-327.3.1.el7
+* Mon Jan 25 2016 CentOS Sources <bugs@centos.org> - 3.10.0-327.4.5.el7
 - Apply debranding changes
+
+* Thu Jan 21 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.4.5.el7]
+- [security] keys: Fix keyring ref leak in join_session_keyring() (David Howells) [1298931 1298036] {CVE-2016-0728}
+
+* Thu Dec 17 2015 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.4.4.el7]
+- rebuild
+
+* Thu Dec 17 2015 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.4.3.el7]
+- [misc] redhat: rebuild for secureboot release key signing (Alexander Gordeev)
+
+* Tue Dec 15 2015 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.4.2.el7]
+- rebuild
+
+* Mon Nov 23 2015 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.4.1.el7]
+- [of] implement of_node_to_nid as a weak function (Steve Best) [1283526 1273978]
 
 * Fri Nov 20 2015 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.3.1.el7]
 - rebuild
