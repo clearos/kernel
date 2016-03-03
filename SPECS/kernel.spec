@@ -12,7 +12,7 @@ Summary: The Linux kernel
 %global distro_build 327
 
 %define rpmversion 3.10.0
-%define pkgrelease 327.4.5.el7
+%define pkgrelease 327.10.1.el7
 
 %define pkg_release %{pkgrelease}%{?buildid}
 
@@ -1541,20 +1541,49 @@ fi
 %kernel_variant_files %{with_kdump} kdump
 
 %changelog
-* Mon Jan 25 2016 CentOS Sources <bugs@centos.org> - 3.10.0-327.4.5.el7
+* Tue Feb 16 2016 CentOS Sources <bugs@centos.org> - 3.10.0-327.10.1.el7
 - Apply debranding changes
 
-* Thu Jan 21 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.4.5.el7]
+* Sat Jan 23 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.10.1.el7]
+- [of] return NUMA_NO_NODE from fallback of_node_to_nid() (Thadeu Lima de Souza Cascardo) [1300614 1294398]
+- [net] openvswitch: do not allocate memory from offline numa node (Thadeu Lima de Souza Cascardo) [1300614 1294398]
+
+* Tue Jan 19 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.9.1.el7]
 - [security] keys: Fix keyring ref leak in join_session_keyring() (David Howells) [1298931 1298036] {CVE-2016-0728}
 
-* Thu Dec 17 2015 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.4.4.el7]
-- rebuild
+* Fri Jan 08 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.8.1.el7]
+- [md] dm: fix AB-BA deadlock in __dm_destroy() (Mike Snitzer) [1296566 1292481]
+- [md] revert "dm-mpath: fix stalls when handling invalid ioctls" (Mike Snitzer) [1287552 1277194]
+- [cpufreq] intel_pstate: Fix limits->max_perf rounding error (Prarit Bhargava) [1296276 1279617]
+- [cpufreq] intel_pstate: Fix limits->max_policy_pct rounding error (Prarit Bhargava) [1296276 1279617]
+- [cpufreq] revert "intel_pstate: fix rounding error in max_freq_pct" (Prarit Bhargava) [1296276 1279617]
+- [crypto] nx: 842 - Add CRC and validation support (Gustavo Duarte) [1289451 1264905]
+- [powerpc] eeh: More relaxed condition for enabled IO path (Steve Best) [1289101 1274731]
+- [security] keys: Don't permit request_key() to construct a new keyring (David Howells) [1275929 1273465] {CVE-2015-7872}
+- [security] keys: Fix crash when attempt to garbage collect an uninstantiated keyring (David Howells) [1275929 1273465] {CVE-2015-7872}
+- [security] keys: Fix race between key destruction and finding a keyring by name (David Howells) [1275929 1273465] {CVE-2015-7872}
+- [x86] paravirt: Replace the paravirt nop with a bona fide empty function (Mateusz Guzik) [1259582 1259583] {CVE-2015-5157}
+- [x86] nmi: Fix a paravirt stack-clobbering bug in the NMI code (Mateusz Guzik) [1259582 1259583] {CVE-2015-5157}
+- [x86] nmi: Use DF to avoid userspace RSP confusing nested NMI detection (Mateusz Guzik) [1259582 1259583] {CVE-2015-5157}
+- [x86] nmi: Reorder nested NMI checks (Mateusz Guzik) [1259582 1259583] {CVE-2015-5157}
+- [x86] nmi: Improve nested NMI comments (Mateusz Guzik) [1259582 1259583] {CVE-2015-5157}
+- [x86] nmi: Switch stacks on userspace NMI entry (Mateusz Guzik) [1259582 1259583] {CVE-2015-5157}
 
-* Thu Dec 17 2015 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.4.3.el7]
-- [misc] redhat: rebuild for secureboot release key signing (Alexander Gordeev)
+* Tue Jan 05 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.7.1.el7]
+- [scsi] scsi_sysfs: protect against double execution of __scsi_remove_device() (Vitaly Kuznetsov) [1292075 1273723]
+- [powerpc] mm: Recompute hash value after a failed update (Gustavo Duarte) [1289452 1264920]
+- [misc] genwqe: get rid of atomic allocations (Hendrik Brueckner) [1289450 1270244]
+- [mm] use only per-device readahead limit (Eric Sandeen) [1287550 1280355]
+- [net] ipv6: update ip6_rt_last_gc every time GC is run (Hannes Frederic Sowa) [1285370 1270092]
+- [kernel] tick: broadcast: Prevent livelock from event handler (Prarit Bhargava) [1284043 1265283]
+- [kernel] clockevents: Serialize calls to clockevents_update_freq() in the core (Prarit Bhargava) [1284043 1265283]
 
-* Tue Dec 15 2015 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.4.2.el7]
-- rebuild
+* Thu Dec 24 2015 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.6.1.el7]
+- [netdrv] bonding: propagate LRO disable to slave devices (Jarod Wilson) [1292072 1266578]
+
+* Mon Dec 21 2015 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.5.1.el7]
+- [net] vsock: Fix lockdep issue (Dave Anderson) [1292372 1253971]
+- [net] vsock: sock_put wasn't safe to call in interrupt context (Dave Anderson) [1292372 1253971]
 
 * Mon Nov 23 2015 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.4.1.el7]
 - [of] implement of_node_to_nid as a weak function (Steve Best) [1283526 1273978]
