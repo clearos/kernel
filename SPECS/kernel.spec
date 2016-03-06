@@ -3,7 +3,7 @@
 
 Summary: The Linux kernel
 
-# % define buildid .local
+%define buildid %{?dist}
 
 # For a kernel released for public testing, released_kernel should be 1.
 # For internal testing builds during development, it should be 0.
@@ -12,12 +12,12 @@ Summary: The Linux kernel
 %global distro_build 327
 
 %define rpmversion 3.10.0
-%define pkgrelease 327.10.1.el7
+%define pkgrelease 327.10.1
 
 %define pkg_release %{pkgrelease}%{?buildid}
 
 # The kernel tarball/base version
-%define rheltarball %{rpmversion}-%{pkgrelease}
+%define rheltarball %{rpmversion}-%{pkgrelease}.el7
 
 # What parts do we want to build?  We must build at least one kernel.
 # These are the kernels that are built IF the architecture allows it.
@@ -330,7 +330,7 @@ BuildRequires: rpm-build >= 4.9.0-1, elfutils >= 0.153-1
 BuildRequires: glibc-static
 %endif
 
-Source0: linux-%{rpmversion}-%{pkgrelease}.tar.xz
+Source0: linux-%{rheltarball}.tar.xz
 
 Source1: Makefile.common
 
@@ -1268,8 +1268,8 @@ make %{?cross_opts} DESTDIR=$RPM_BUILD_ROOT bootwrapper_install WRAPPER_OBJDIR=%
 
 %if %{with_doc}
 # Red Hat UEFI Secure Boot CA cert, which can be used to authenticate the kernel
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/doc/kernel-keys/%{rpmversion}-%{pkgrelease}
-install -m 0644 %{SOURCE13} $RPM_BUILD_ROOT%{_datadir}/doc/kernel-keys/%{rpmversion}-%{pkgrelease}/kernel-signing-ca.cer
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/doc/kernel-keys/%{rpmversion}-%{pkg_release}
+install -m 0644 %{SOURCE13} $RPM_BUILD_ROOT%{_datadir}/doc/kernel-keys/%{rpmversion}-%{pkg_release}/kernel-signing-ca.cer
 %endif
 
 ###
@@ -1412,8 +1412,8 @@ fi
 %dir %{_datadir}/doc/kernel-doc-%{rpmversion}/Documentation
 %dir %{_datadir}/doc/kernel-doc-%{rpmversion}
 %{_datadir}/man/man9/*
-%{_datadir}/doc/kernel-keys/%{rpmversion}-%{pkgrelease}/kernel-signing-ca.cer
-%dir %{_datadir}/doc/kernel-keys/%{rpmversion}-%{pkgrelease}
+%{_datadir}/doc/kernel-keys/%{rpmversion}-%{pkg_release}/kernel-signing-ca.cer
+%dir %{_datadir}/doc/kernel-keys/%{rpmversion}-%{pkg_release}
 %dir %{_datadir}/doc/kernel-keys
 %endif
 

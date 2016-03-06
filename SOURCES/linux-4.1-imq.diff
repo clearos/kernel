@@ -1,6 +1,6 @@
-diff -ruN linux-3.10.0-327.3.1.el7/drivers/net/imq.c linux-3.10.0-327.3.1.el7-imq/drivers/net/imq.c
---- linux-3.10.0-327.3.1.el7/drivers/net/imq.c	1969-12-31 19:00:00.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/drivers/net/imq.c	2015-12-17 16:53:14.591100518 -0500
+diff -ruN linux-3.10.0-327.10.1.v7/drivers/net/imq.c linux-3.10.0-327.10.1.v7-imq/drivers/net/imq.c
+--- linux-3.10.0-327.10.1.v7/drivers/net/imq.c	1969-12-31 19:00:00.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/drivers/net/imq.c	2016-03-04 14:21:17.436457750 -0500
 @@ -0,0 +1,917 @@
 +/*
 + *             Pseudo-driver for the intermediate queue device.
@@ -919,9 +919,9 @@ diff -ruN linux-3.10.0-327.3.1.el7/drivers/net/imq.c linux-3.10.0-327.3.1.el7-im
 +MODULE_DESCRIPTION("Pseudo-driver for the intermediate queue device. See https://github.com/imq/linuximq/wiki for more information.");
 +MODULE_LICENSE("GPL");
 +MODULE_ALIAS_RTNL_LINK("imq");
-diff -ruN linux-3.10.0-327.3.1.el7/drivers/net/Kconfig linux-3.10.0-327.3.1.el7-imq/drivers/net/Kconfig
---- linux-3.10.0-327.3.1.el7/drivers/net/Kconfig	2015-11-20 04:57:17.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/drivers/net/Kconfig	2015-12-17 10:51:57.590226782 -0500
+diff -ruN linux-3.10.0-327.10.1.v7/drivers/net/Kconfig linux-3.10.0-327.10.1.v7-imq/drivers/net/Kconfig
+--- linux-3.10.0-327.10.1.v7/drivers/net/Kconfig	2016-01-23 03:53:07.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/drivers/net/Kconfig	2016-03-04 14:21:17.439457815 -0500
 @@ -202,6 +202,125 @@
  	depends on RIONET
  	default "128"
@@ -1048,9 +1048,9 @@ diff -ruN linux-3.10.0-327.3.1.el7/drivers/net/Kconfig linux-3.10.0-327.3.1.el7-
  config TUN
  	tristate "Universal TUN/TAP device driver support"
  	select CRC32
-diff -ruN linux-3.10.0-327.3.1.el7/drivers/net/Makefile linux-3.10.0-327.3.1.el7-imq/drivers/net/Makefile
---- linux-3.10.0-327.3.1.el7/drivers/net/Makefile	2015-11-20 04:57:17.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/drivers/net/Makefile	2015-12-17 10:51:57.592226824 -0500
+diff -ruN linux-3.10.0-327.10.1.v7/drivers/net/Makefile linux-3.10.0-327.10.1.v7-imq/drivers/net/Makefile
+--- linux-3.10.0-327.10.1.v7/drivers/net/Makefile	2016-01-23 03:53:07.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/drivers/net/Makefile	2016-03-04 14:21:17.441457859 -0500
 @@ -9,6 +9,7 @@
  obj-$(CONFIG_DUMMY) += dummy.o
  obj-$(CONFIG_EQUALIZER) += eql.o
@@ -1059,9 +1059,9 @@ diff -ruN linux-3.10.0-327.3.1.el7/drivers/net/Makefile linux-3.10.0-327.3.1.el7
  obj-$(CONFIG_MACVLAN) += macvlan.o
  obj-$(CONFIG_MACVTAP) += macvtap.o
  obj-$(CONFIG_MII) += mii.o
-diff -ruN linux-3.10.0-327.3.1.el7/include/linux/imq.h linux-3.10.0-327.3.1.el7-imq/include/linux/imq.h
---- linux-3.10.0-327.3.1.el7/include/linux/imq.h	1969-12-31 19:00:00.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/include/linux/imq.h	2015-12-17 10:51:57.595226887 -0500
+diff -ruN linux-3.10.0-327.10.1.v7/include/linux/imq.h linux-3.10.0-327.10.1.v7-imq/include/linux/imq.h
+--- linux-3.10.0-327.10.1.v7/include/linux/imq.h	1969-12-31 19:00:00.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/include/linux/imq.h	2016-03-04 14:21:17.442457880 -0500
 @@ -0,0 +1,13 @@
 +#ifndef _IMQ_H
 +#define _IMQ_H
@@ -1076,10 +1076,10 @@ diff -ruN linux-3.10.0-327.3.1.el7/include/linux/imq.h linux-3.10.0-327.3.1.el7-
 +
 +#endif /* _IMQ_H */
 +
-diff -ruN linux-3.10.0-327.3.1.el7/include/linux/netdevice.h linux-3.10.0-327.3.1.el7-imq/include/linux/netdevice.h
---- linux-3.10.0-327.3.1.el7/include/linux/netdevice.h	2015-11-20 04:57:17.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/include/linux/netdevice.h	2015-12-17 13:44:29.049143572 -0500
-@@ -2786,6 +2786,7 @@
+diff -ruN linux-3.10.0-327.10.1.v7/include/linux/netdevice.h linux-3.10.0-327.10.1.v7-imq/include/linux/netdevice.h
+--- linux-3.10.0-327.10.1.v7/include/linux/netdevice.h	2016-01-23 03:53:07.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/include/linux/netdevice.h	2016-03-04 14:21:17.445457946 -0500
+@@ -2794,6 +2794,7 @@
  int dev_get_phys_port_id(struct net_device *dev,
  			 struct netdev_phys_port_id *ppid);
  struct sk_buff *validate_xmit_skb(struct sk_buff *skb, struct net_device *dev);
@@ -1087,7 +1087,7 @@ diff -ruN linux-3.10.0-327.3.1.el7/include/linux/netdevice.h linux-3.10.0-327.3.
  struct sk_buff *dev_hard_start_xmit(struct sk_buff *skb, struct net_device *dev,
  				    struct netdev_queue *txq, int *ret);
  int __dev_forward_skb(struct net_device *dev, struct sk_buff *skb);
-@@ -3076,6 +3077,19 @@
+@@ -3084,6 +3085,19 @@
  	}						\
  }
  
@@ -1107,9 +1107,9 @@ diff -ruN linux-3.10.0-327.3.1.el7/include/linux/netdevice.h linux-3.10.0-327.3.
  static inline void netif_tx_disable(struct net_device *dev)
  {
  	unsigned int i;
-diff -ruN linux-3.10.0-327.3.1.el7/include/linux/netfilter/xt_IMQ.h linux-3.10.0-327.3.1.el7-imq/include/linux/netfilter/xt_IMQ.h
---- linux-3.10.0-327.3.1.el7/include/linux/netfilter/xt_IMQ.h	1969-12-31 19:00:00.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/include/linux/netfilter/xt_IMQ.h	2015-12-17 10:51:57.599226971 -0500
+diff -ruN linux-3.10.0-327.10.1.v7/include/linux/netfilter/xt_IMQ.h linux-3.10.0-327.10.1.v7-imq/include/linux/netfilter/xt_IMQ.h
+--- linux-3.10.0-327.10.1.v7/include/linux/netfilter/xt_IMQ.h	1969-12-31 19:00:00.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/include/linux/netfilter/xt_IMQ.h	2016-03-04 14:21:17.456458185 -0500
 @@ -0,0 +1,9 @@
 +#ifndef _XT_IMQ_H
 +#define _XT_IMQ_H
@@ -1120,9 +1120,9 @@ diff -ruN linux-3.10.0-327.3.1.el7/include/linux/netfilter/xt_IMQ.h linux-3.10.0
 +
 +#endif /* _XT_IMQ_H */
 +
-diff -ruN linux-3.10.0-327.3.1.el7/include/linux/netfilter_ipv4/ipt_IMQ.h linux-3.10.0-327.3.1.el7-imq/include/linux/netfilter_ipv4/ipt_IMQ.h
---- linux-3.10.0-327.3.1.el7/include/linux/netfilter_ipv4/ipt_IMQ.h	1969-12-31 19:00:00.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/include/linux/netfilter_ipv4/ipt_IMQ.h	2015-12-17 10:51:57.600226992 -0500
+diff -ruN linux-3.10.0-327.10.1.v7/include/linux/netfilter_ipv4/ipt_IMQ.h linux-3.10.0-327.10.1.v7-imq/include/linux/netfilter_ipv4/ipt_IMQ.h
+--- linux-3.10.0-327.10.1.v7/include/linux/netfilter_ipv4/ipt_IMQ.h	1969-12-31 19:00:00.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/include/linux/netfilter_ipv4/ipt_IMQ.h	2016-03-04 14:21:17.457458207 -0500
 @@ -0,0 +1,10 @@
 +#ifndef _IPT_IMQ_H
 +#define _IPT_IMQ_H
@@ -1134,9 +1134,9 @@ diff -ruN linux-3.10.0-327.3.1.el7/include/linux/netfilter_ipv4/ipt_IMQ.h linux-
 +
 +#endif /* _IPT_IMQ_H */
 +
-diff -ruN linux-3.10.0-327.3.1.el7/include/linux/netfilter_ipv6/ip6t_IMQ.h linux-3.10.0-327.3.1.el7-imq/include/linux/netfilter_ipv6/ip6t_IMQ.h
---- linux-3.10.0-327.3.1.el7/include/linux/netfilter_ipv6/ip6t_IMQ.h	1969-12-31 19:00:00.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/include/linux/netfilter_ipv6/ip6t_IMQ.h	2015-12-17 10:51:57.601227013 -0500
+diff -ruN linux-3.10.0-327.10.1.v7/include/linux/netfilter_ipv6/ip6t_IMQ.h linux-3.10.0-327.10.1.v7-imq/include/linux/netfilter_ipv6/ip6t_IMQ.h
+--- linux-3.10.0-327.10.1.v7/include/linux/netfilter_ipv6/ip6t_IMQ.h	1969-12-31 19:00:00.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/include/linux/netfilter_ipv6/ip6t_IMQ.h	2016-03-04 14:21:17.458458229 -0500
 @@ -0,0 +1,10 @@
 +#ifndef _IP6T_IMQ_H
 +#define _IP6T_IMQ_H
@@ -1148,9 +1148,9 @@ diff -ruN linux-3.10.0-327.3.1.el7/include/linux/netfilter_ipv6/ip6t_IMQ.h linux
 +
 +#endif /* _IP6T_IMQ_H */
 +
-diff -ruN linux-3.10.0-327.3.1.el7/include/linux/skbuff.h linux-3.10.0-327.3.1.el7-imq/include/linux/skbuff.h
---- linux-3.10.0-327.3.1.el7/include/linux/skbuff.h	2015-11-20 04:57:17.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/include/linux/skbuff.h	2015-12-17 11:15:41.969197657 -0500
+diff -ruN linux-3.10.0-327.10.1.v7/include/linux/skbuff.h linux-3.10.0-327.10.1.v7-imq/include/linux/skbuff.h
+--- linux-3.10.0-327.10.1.v7/include/linux/skbuff.h	2016-01-23 03:53:07.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/include/linux/skbuff.h	2016-03-04 14:21:17.461458294 -0500
 @@ -34,6 +34,9 @@
  #include <linux/netdev_features.h>
  #include <linux/sched.h>
@@ -1215,9 +1215,9 @@ diff -ruN linux-3.10.0-327.3.1.el7/include/linux/skbuff.h linux-3.10.0-327.3.1.e
  #ifdef CONFIG_BRIDGE_NETFILTER
  	dst->nf_bridge  = src->nf_bridge;
  	nf_bridge_get(src->nf_bridge);
-diff -ruN linux-3.10.0-327.3.1.el7/include/net/netfilter/nf_queue.h linux-3.10.0-327.3.1.el7-imq/include/net/netfilter/nf_queue.h
---- linux-3.10.0-327.3.1.el7/include/net/netfilter/nf_queue.h	2015-11-20 04:57:17.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/include/net/netfilter/nf_queue.h	2015-12-17 10:51:57.607227139 -0500
+diff -ruN linux-3.10.0-327.10.1.v7/include/net/netfilter/nf_queue.h linux-3.10.0-327.10.1.v7-imq/include/net/netfilter/nf_queue.h
+--- linux-3.10.0-327.10.1.v7/include/net/netfilter/nf_queue.h	2016-01-23 03:53:07.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/include/net/netfilter/nf_queue.h	2016-03-04 14:21:17.464458359 -0500
 @@ -29,6 +29,12 @@
  void nf_register_queue_handler(const struct nf_queue_handler *qh);
  void nf_unregister_queue_handler(void);
@@ -1231,9 +1231,9 @@ diff -ruN linux-3.10.0-327.3.1.el7/include/net/netfilter/nf_queue.h linux-3.10.0
  
  bool nf_queue_entry_get_refs(struct nf_queue_entry *entry);
  void nf_queue_entry_release_refs(struct nf_queue_entry *entry);
-diff -ruN linux-3.10.0-327.3.1.el7/include/net/pkt_sched.h linux-3.10.0-327.3.1.el7-imq/include/net/pkt_sched.h
---- linux-3.10.0-327.3.1.el7/include/net/pkt_sched.h	2015-11-20 04:57:17.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/include/net/pkt_sched.h	2015-12-17 10:51:57.608227160 -0500
+diff -ruN linux-3.10.0-327.10.1.v7/include/net/pkt_sched.h linux-3.10.0-327.10.1.v7-imq/include/net/pkt_sched.h
+--- linux-3.10.0-327.10.1.v7/include/net/pkt_sched.h	2016-01-23 03:53:07.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/include/net/pkt_sched.h	2016-03-04 14:21:17.466458403 -0500
 @@ -102,6 +102,8 @@
  
  void __qdisc_run(struct Qdisc *q);
@@ -1243,9 +1243,9 @@ diff -ruN linux-3.10.0-327.3.1.el7/include/net/pkt_sched.h linux-3.10.0-327.3.1.
  static inline void qdisc_run(struct Qdisc *q)
  {
  	if (qdisc_run_begin(q))
-diff -ruN linux-3.10.0-327.3.1.el7/include/uapi/linux/netfilter.h linux-3.10.0-327.3.1.el7-imq/include/uapi/linux/netfilter.h
---- linux-3.10.0-327.3.1.el7/include/uapi/linux/netfilter.h	2015-11-20 04:57:17.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/include/uapi/linux/netfilter.h	2015-12-17 10:51:57.611227223 -0500
+diff -ruN linux-3.10.0-327.10.1.v7/include/uapi/linux/netfilter.h linux-3.10.0-327.10.1.v7-imq/include/uapi/linux/netfilter.h
+--- linux-3.10.0-327.10.1.v7/include/uapi/linux/netfilter.h	2016-01-23 03:53:07.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/include/uapi/linux/netfilter.h	2016-03-04 14:21:17.468458446 -0500
 @@ -13,7 +13,8 @@
  #define NF_QUEUE 3
  #define NF_REPEAT 4
@@ -1256,20 +1256,20 @@ diff -ruN linux-3.10.0-327.3.1.el7/include/uapi/linux/netfilter.h linux-3.10.0-3
  
  /* we overload the higher bits for encoding auxiliary data such as the queue
   * number or errno values. Not nice, but better than additional function
-diff -ruN linux-3.10.0-327.3.1.el7/net/core/dev.c linux-3.10.0-327.3.1.el7-imq/net/core/dev.c
---- linux-3.10.0-327.3.1.el7/net/core/dev.c	2015-11-20 04:57:17.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/net/core/dev.c	2015-12-17 11:41:51.841999617 -0500
-@@ -133,6 +133,9 @@
- #include <linux/hashtable.h>
+diff -ruN linux-3.10.0-327.10.1.v7/net/core/dev.c linux-3.10.0-327.10.1.v7-imq/net/core/dev.c
+--- linux-3.10.0-327.10.1.v7/net/core/dev.c	2016-01-23 03:53:07.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/net/core/dev.c	2016-03-04 14:21:38.893924613 -0500
+@@ -134,6 +134,9 @@
  #include <linux/vmalloc.h>
  #include <linux/hrtimer.h>
+ #include <net/bonding.h>
 +#if defined(CONFIG_IMQ) || defined(CONFIG_IMQ_MODULE)
 +#include <linux/imq.h>
 +#endif
  
  #include "net-sysfs.h"
  
-@@ -2535,7 +2538,11 @@
+@@ -2545,7 +2548,11 @@
  	unsigned int len;
  	int rc;
  
@@ -1281,7 +1281,7 @@ diff -ruN linux-3.10.0-327.3.1.el7/net/core/dev.c linux-3.10.0-327.3.1.el7-imq/n
  		dev_queue_xmit_nit(skb, dev);
  
  	len = skb->len;
-@@ -2572,6 +2579,7 @@
+@@ -2582,6 +2589,7 @@
  	*ret = rc;
  	return skb;
  }
@@ -1289,7 +1289,7 @@ diff -ruN linux-3.10.0-327.3.1.el7/net/core/dev.c linux-3.10.0-327.3.1.el7-imq/n
  
  static struct sk_buff *validate_xmit_vlan(struct sk_buff *skb,
  					  netdev_features_t features)
-@@ -2634,6 +2642,34 @@
+@@ -2644,6 +2652,34 @@
  	return NULL;
  }
  
@@ -1324,9 +1324,9 @@ diff -ruN linux-3.10.0-327.3.1.el7/net/core/dev.c linux-3.10.0-327.3.1.el7-imq/n
  static void qdisc_pkt_len_init(struct sk_buff *skb)
  {
  	const struct skb_shared_info *shinfo = skb_shinfo(skb);
-diff -ruN linux-3.10.0-327.3.1.el7/net/core/skbuff.c linux-3.10.0-327.3.1.el7-imq/net/core/skbuff.c
---- linux-3.10.0-327.3.1.el7/net/core/skbuff.c	2015-11-20 04:57:17.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/net/core/skbuff.c	2015-12-17 10:58:05.778964888 -0500
+diff -ruN linux-3.10.0-327.10.1.v7/net/core/skbuff.c linux-3.10.0-327.10.1.v7-imq/net/core/skbuff.c
+--- linux-3.10.0-327.10.1.v7/net/core/skbuff.c	2016-01-23 03:53:07.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/net/core/skbuff.c	2016-03-04 14:21:17.478458664 -0500
 @@ -76,6 +76,87 @@
  
  struct kmem_cache *skbuff_head_cache __read_mostly;
@@ -1469,9 +1469,9 @@ diff -ruN linux-3.10.0-327.3.1.el7/net/core/skbuff.c linux-3.10.0-327.3.1.el7-im
  }
  
  /**
-diff -ruN linux-3.10.0-327.3.1.el7/net/ipv6/ip6_output.c linux-3.10.0-327.3.1.el7-imq/net/ipv6/ip6_output.c
---- linux-3.10.0-327.3.1.el7/net/ipv6/ip6_output.c	2015-11-20 04:57:17.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/net/ipv6/ip6_output.c	2015-12-17 10:51:57.621227433 -0500
+diff -ruN linux-3.10.0-327.10.1.v7/net/ipv6/ip6_output.c linux-3.10.0-327.10.1.v7-imq/net/ipv6/ip6_output.c
+--- linux-3.10.0-327.10.1.v7/net/ipv6/ip6_output.c	2016-01-23 03:53:07.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/net/ipv6/ip6_output.c	2016-03-04 14:21:17.480458707 -0500
 @@ -64,9 +64,6 @@
  	struct in6_addr *nexthop;
  	int ret;
@@ -1496,9 +1496,9 @@ diff -ruN linux-3.10.0-327.3.1.el7/net/ipv6/ip6_output.c linux-3.10.0-327.3.1.el
  	return NF_HOOK_COND(NFPROTO_IPV6, NF_INET_POST_ROUTING, sk, skb,
  			    NULL, dev,
  			    ip6_finish_output,
-diff -ruN linux-3.10.0-327.3.1.el7/net/netfilter/core.c linux-3.10.0-327.3.1.el7-imq/net/netfilter/core.c
---- linux-3.10.0-327.3.1.el7/net/netfilter/core.c	2015-11-20 04:57:17.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/net/netfilter/core.c	2015-12-17 10:51:57.626227538 -0500
+diff -ruN linux-3.10.0-327.10.1.v7/net/netfilter/core.c linux-3.10.0-327.10.1.v7-imq/net/netfilter/core.c
+--- linux-3.10.0-327.10.1.v7/net/netfilter/core.c	2016-01-23 03:53:07.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/net/netfilter/core.c	2016-03-04 14:21:17.482458751 -0500
 @@ -185,9 +185,11 @@
  		ret = NF_DROP_GETERR(verdict);
  		if (ret == 0)
@@ -1513,9 +1513,9 @@ diff -ruN linux-3.10.0-327.3.1.el7/net/netfilter/core.c linux-3.10.0-327.3.1.el7
  		if (err < 0) {
  			if (err == -ECANCELED)
  				goto next_hook;
-diff -ruN linux-3.10.0-327.3.1.el7/net/netfilter/Kconfig linux-3.10.0-327.3.1.el7-imq/net/netfilter/Kconfig
---- linux-3.10.0-327.3.1.el7/net/netfilter/Kconfig	2015-11-20 04:57:17.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/net/netfilter/Kconfig	2015-12-17 10:51:57.623227475 -0500
+diff -ruN linux-3.10.0-327.10.1.v7/net/netfilter/Kconfig linux-3.10.0-327.10.1.v7-imq/net/netfilter/Kconfig
+--- linux-3.10.0-327.10.1.v7/net/netfilter/Kconfig	2016-01-23 03:53:07.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/net/netfilter/Kconfig	2016-03-04 14:21:17.485458816 -0500
 @@ -766,6 +766,18 @@
  
  	  To compile it as a module, choose M here.  If unsure, say N.
@@ -1535,9 +1535,9 @@ diff -ruN linux-3.10.0-327.3.1.el7/net/netfilter/Kconfig linux-3.10.0-327.3.1.el
  config NETFILTER_XT_TARGET_MARK
  	tristate '"MARK" target support'
  	depends on NETFILTER_ADVANCED
-diff -ruN linux-3.10.0-327.3.1.el7/net/netfilter/Makefile linux-3.10.0-327.3.1.el7-imq/net/netfilter/Makefile
---- linux-3.10.0-327.3.1.el7/net/netfilter/Makefile	2015-11-20 04:57:17.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/net/netfilter/Makefile	2015-12-17 10:51:57.625227517 -0500
+diff -ruN linux-3.10.0-327.10.1.v7/net/netfilter/Makefile linux-3.10.0-327.10.1.v7-imq/net/netfilter/Makefile
+--- linux-3.10.0-327.10.1.v7/net/netfilter/Makefile	2016-01-23 03:53:07.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/net/netfilter/Makefile	2016-03-04 14:21:17.488458881 -0500
 @@ -107,6 +107,7 @@
  obj-$(CONFIG_NETFILTER_XT_TARGET_DSCP) += xt_DSCP.o
  obj-$(CONFIG_NETFILTER_XT_TARGET_HL) += xt_HL.o
@@ -1546,9 +1546,9 @@ diff -ruN linux-3.10.0-327.3.1.el7/net/netfilter/Makefile linux-3.10.0-327.3.1.e
  obj-$(CONFIG_NETFILTER_XT_TARGET_LED) += xt_LED.o
  obj-$(CONFIG_NETFILTER_XT_TARGET_LOG) += xt_LOG.o
  obj-$(CONFIG_NETFILTER_XT_TARGET_NETMAP) += xt_NETMAP.o
-diff -ruN linux-3.10.0-327.3.1.el7/net/netfilter/nf_internals.h linux-3.10.0-327.3.1.el7-imq/net/netfilter/nf_internals.h
---- linux-3.10.0-327.3.1.el7/net/netfilter/nf_internals.h	2015-11-20 04:57:17.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/net/netfilter/nf_internals.h	2015-12-17 11:01:29.255245624 -0500
+diff -ruN linux-3.10.0-327.10.1.v7/net/netfilter/nf_internals.h linux-3.10.0-327.10.1.v7-imq/net/netfilter/nf_internals.h
+--- linux-3.10.0-327.10.1.v7/net/netfilter/nf_internals.h	2016-01-23 03:53:07.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/net/netfilter/nf_internals.h	2016-03-04 14:21:17.489458903 -0500
 @@ -18,7 +18,7 @@
  
  /* nf_queue.c */
@@ -1558,9 +1558,9 @@ diff -ruN linux-3.10.0-327.3.1.el7/net/netfilter/nf_internals.h linux-3.10.0-327
  int __init netfilter_queue_init(void);
  
  /* nf_log.c */
-diff -ruN linux-3.10.0-327.3.1.el7/net/netfilter/nf_queue.c linux-3.10.0-327.3.1.el7-imq/net/netfilter/nf_queue.c
---- linux-3.10.0-327.3.1.el7/net/netfilter/nf_queue.c	2015-11-20 04:57:17.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/net/netfilter/nf_queue.c	2015-12-17 10:51:57.630227622 -0500
+diff -ruN linux-3.10.0-327.10.1.v7/net/netfilter/nf_queue.c linux-3.10.0-327.10.1.v7-imq/net/netfilter/nf_queue.c
+--- linux-3.10.0-327.10.1.v7/net/netfilter/nf_queue.c	2016-01-23 03:53:07.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/net/netfilter/nf_queue.c	2016-03-04 14:21:17.491458947 -0500
 @@ -27,6 +27,23 @@
   */
  static const struct nf_queue_handler __rcu *queue_handler __read_mostly;
@@ -1626,9 +1626,9 @@ diff -ruN linux-3.10.0-327.3.1.el7/net/netfilter/nf_queue.c linux-3.10.0-327.3.1
  		if (err < 0) {
  			if (err == -ECANCELED)
  				goto next_hook;
-diff -ruN linux-3.10.0-327.3.1.el7/net/netfilter/xt_IMQ.c linux-3.10.0-327.3.1.el7-imq/net/netfilter/xt_IMQ.c
---- linux-3.10.0-327.3.1.el7/net/netfilter/xt_IMQ.c	1969-12-31 19:00:00.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/net/netfilter/xt_IMQ.c	2015-12-17 10:51:57.631227643 -0500
+diff -ruN linux-3.10.0-327.10.1.v7/net/netfilter/xt_IMQ.c linux-3.10.0-327.10.1.v7-imq/net/netfilter/xt_IMQ.c
+--- linux-3.10.0-327.10.1.v7/net/netfilter/xt_IMQ.c	1969-12-31 19:00:00.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/net/netfilter/xt_IMQ.c	2016-03-04 14:21:17.493458990 -0500
 @@ -0,0 +1,72 @@
 +/*
 + * This target marks packets to be enqueued to an imq device
@@ -1702,9 +1702,9 @@ diff -ruN linux-3.10.0-327.3.1.el7/net/netfilter/xt_IMQ.c linux-3.10.0-327.3.1.e
 +MODULE_ALIAS("ipt_IMQ");
 +MODULE_ALIAS("ip6t_IMQ");
 +
-diff -ruN linux-3.10.0-327.3.1.el7/net/sched/sch_generic.c linux-3.10.0-327.3.1.el7-imq/net/sched/sch_generic.c
---- linux-3.10.0-327.3.1.el7/net/sched/sch_generic.c	2015-11-20 04:57:17.000000000 -0500
-+++ linux-3.10.0-327.3.1.el7-imq/net/sched/sch_generic.c	2015-12-17 12:20:09.345522605 -0500
+diff -ruN linux-3.10.0-327.10.1.v7/net/sched/sch_generic.c linux-3.10.0-327.10.1.v7-imq/net/sched/sch_generic.c
+--- linux-3.10.0-327.10.1.v7/net/sched/sch_generic.c	2016-01-23 03:53:07.000000000 -0500
++++ linux-3.10.0-327.10.1.v7-imq/net/sched/sch_generic.c	2016-03-04 14:21:17.495459034 -0500
 @@ -114,6 +114,12 @@
  	return skb;
  }
