@@ -12,7 +12,7 @@ Summary: The Linux kernel
 %global distro_build 327
 
 %define rpmversion 3.10.0
-%define pkgrelease 327.10.1
+%define pkgrelease 327.18.2
 
 %define pkg_release %{pkgrelease}%{?buildid}
 
@@ -1541,8 +1541,124 @@ fi
 %kernel_variant_files %{with_kdump} kdump
 
 %changelog
-* Tue Feb 16 2016 CentOS Sources <bugs@centos.org> - 3.10.0-327.10.1.el7
+* Wed Jun 22 2016 ClearFoundation <developer@clearfoundation.com> - 3.10.0-327.18.2.v7
+- Change signing key to ClearOS
+- Add IMQ patch and update kABI accordingly
+- Updated IMQ patch
+
+* Thu May 12 2016 CentOS Sources <bugs@centos.org> - 3.10.0-327.18.2.el7
 - Apply debranding changes
+
+* Fri Apr 08 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.18.2.el7]
+- [lib] keys: Fix ASN.1 indefinite length object parsing (David Howells) [1308814 1308815] {CVE-2016-0758}
+
+* Mon Apr 04 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.18.1.el7]
+- [scsi] bnx2fc: Fix FCP RSP residual parsing (Maurizio Lombardi) [1322279 1306342]
+- [mm] madvise: fix MADV_WILLNEED on shmem swapouts (Mitsuhiro Tanino) [1319845 1312729]
+- [scsi] bnx2fc: Remove explicit logouts (Maurizio Lombardi) [1317591 1303027]
+- [cpufreq] intel_pstate: decrease number of "HWP enabled" messages (David Arcari) [1316821 1310927]
+- [cpufreq] intel_pstate: enable HWP per CPU (David Arcari) [1316821 1310927]
+- [scsi] mpt3sas: Fix for Asynchronous completion of timedout IO and task abort of timedout IO (Tomas Henzl) [1316820 1259907]
+- [scsi] scsi_error: should not get sense for timeout IO in scsi error handler (Tomas Henzl) [1316820 1259907]
+- [scsi] Revert libiscsi: Reduce locking contention in fast path (Chris Leech) [1316812 1297876]
+- [powerpc] kvm: book3s_hv: Sanitize special-purpose register values on guest exit (Thomas Huth) [1316636 1313725]
+- [kernel] sched: Robustify topology setup (Gustavo Duarte) [1316158 1278875]
+- [kernel] sched: Don't set sd->child to NULL when it is already NULL (Gustavo Duarte) [1316158 1278875]
+- [ib] mlx5: Fix RC transport send queue overhead computation (Don Dutile) [1313814 1293336]
+- [block] nvme: default to 4k device page size (David Milburn) [1312399 1245140]
+- [powerpc] cxl: Fix unbalanced pci_dev_get in cxl_probe (Gustavo Duarte) [1312396 1288112]
+- [powerpc] eeh: Probe after unbalanced kref check (Gustavo Duarte) [1312396 1288112]
+- [fs] nfsd: fix clp->cl_revoked list deletion causing softlock in nfsd (J. Bruce Fields) [1311582 1300023]
+- [kernel] sched/fair: Disable tg load_avg/runnable_avg update for root_task_group (Jiri Olsa) [1306317 1289261]
+- [kernel] sched/fair: Move hot load_avg/runnable_avg into separate cacheline (Jiri Olsa) [1306317 1289261]
+
+* Thu Mar 31 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.17.1.el7]
+- [fs] ceph: make fsync() wait unsafe requests that created/modified inode (Zheng Yan) [1320033 1291193]
+- [fs] ceph: add request to i_unsafe_dirops when getting unsafe reply (Zheng Yan) [1320033 1291193]
+- [fs] ceph: don't invalidate page cache when inode is no longer used (Zheng Yan) [1320033 1291193]
+- [fs] ceph: fix message length computation (Zheng Yan) [1320033 1291193]
+- [fs] ceph: improve readahead for file holes (Zheng Yan) [1320033 1291193]
+- [fs] ceph: get inode size for each append write (Zheng Yan) [1320033 1291193]
+- [fs] ceph: cleanup use of ceph_msg_get (Zheng Yan) [1320033 1291193]
+- [fs] ceph: no need to get parent inode in ceph_open (Zheng Yan) [1320033 1291193]
+- [fs] ceph: remove the useless judgement (Zheng Yan) [1320033 1291193]
+- [fs] ceph: remove redundant test of head->safe and silence static analysis warnings (Zheng Yan) [1320033 1291193]
+- [fs] ceph: fix queuing inode to mdsdir's snaprealm (Zheng Yan) [1320033 1291193]
+- [fs] ceph: invalidate dirty pages after forced umount (Zheng Yan) [1320033 1291193]
+- [fs] ceph: EIO all operations after forced umount (Zheng Yan) [1320033 1291193]
+- [fs] ceph: always re-send cap flushes when MDS recovers (Zheng Yan) [1320033 1291193]
+- [fs] ceph: fix ceph_writepages_start() (Zheng Yan) [1320033 1291193]
+- [fs] ceph: switch some GFP_NOFS memory allocation to GFP_KERNEL (Zheng Yan) [1320033 1291193]
+- [fs] ceph: pre-allocate data structure that tracks caps flushing (Zheng Yan) [1320033 1291193]
+- [fs] ceph: re-send flushing caps (which are revoked) in reconnect stage (Zheng Yan) [1320033 1291193]
+- [fs] ceph: send TID of the oldest pending caps flush to MDS (Zheng Yan) [1320033 1291193]
+- [fs] ceph: track pending caps flushing globally (Zheng Yan) [1320033 1291193]
+- [fs] ceph: track pending caps flushing accurately (Zheng Yan) [1320033 1291193]
+- [fs] ceph: fix directory fsync (Zheng Yan) [1320033 1291193]
+- [fs] ceph: fix flushing caps (Zheng Yan) [1320033 1291193]
+- [fs] ceph: don't include used caps in cap_wanted (Zheng Yan) [1320033 1291193]
+- [fs] ceph: ratelimit warn messages for MDS closes session (Zheng Yan) [1320033 1291193]
+- [fs] ceph: simplify two mount_timeout sites (Zheng Yan) [1320033 1291193]
+- [fs] libceph: store timeouts in jiffies, verify user input (Zheng Yan) [1320033 1291193]
+- [fs] ceph: exclude setfilelock requests when calculating oldest tid (Zheng Yan) [1320033 1291193]
+- [fs] ceph: don't pre-allocate space for cap release messages (Zheng Yan) [1320033 1291193]
+- [fs] ceph: make sure syncfs flushes all cap snaps (Zheng Yan) [1320033 1291193]
+- [fs] ceph: don't trim auth cap when there are cap snaps (Zheng Yan) [1320033 1291193]
+- [fs] ceph: take snap_rwsem when accessing snap realm's cached_context (Zheng Yan) [1320033 1291193]
+- [fs] ceph: avoid sending unnessesary FLUSHSNAP message (Zheng Yan) [1320033 1291193]
+- [fs] ceph: set i_head_snapc when getting CEPH_CAP_FILE_WR reference (Zheng Yan) [1320033 1291193]
+- [fs] ceph: use empty snap context for uninline_data and get_pool_perm (Zheng Yan) [1320033 1291193]
+- [fs] ceph: check OSD caps before read/write (Zheng Yan) [1320033 1291193]
+- [fs] libceph: allow setting osd_req_op's flags (Zheng Yan) [1320033 1291193]
+
+* Fri Mar 25 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.16.1.el7]
+- [tty] pty: make sure super_block is still valid in final /dev/tty close (Herton R. Krzesinski) [1320297 1291313]
+- [tty] pty: fix possible use after free of tty->driver_data (Herton R. Krzesinski) [1320297 1291313]
+
+* Mon Mar 21 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.15.1.el7]
+- [netdrv] sfc: push partner queue for skb->xmit_more (Jarod Wilson) [1318323 1267167]
+- [netdrv] sfc: replace spinlocks with bit ops for busy poll locking (Jarod Wilson) [1318323 1267167]
+
+* Wed Mar 16 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.14.1.el7]
+- [kernel] sched: Move cpu_active() tests from stop_two_cpus() into migrate_swap_stop() (Oleg Nesterov) [1299338 1252281]
+- [kernel] stop_machine: Change cpu_stop_queue_two_works() to rely on stopper->enabled (Oleg Nesterov) [1299338 1252281]
+- [kernel] stop_machine: Introduce __cpu_stop_queue_work() and cpu_stop_queue_two_works() (Oleg Nesterov) [1299338 1252281]
+- [kernel] stop_machine: Ensure that a queued callback will be called before cpu_stop_park() (Oleg Nesterov) [1299338 1252281]
+- [kernel] stop_machine: Remove cpu_stop_work's from list in cpu_stop_park() (Oleg Nesterov) [1299338 1252281]
+- [kernel] stop_machine: Don't do for_each_cpu() twice in queue_stop_cpus_work() (Oleg Nesterov) [1299338 1252281]
+- [kernel] stop_machine: Move 'cpu_stopper_task' and 'stop_cpus_work' into 'struct cpu_stopper' (Oleg Nesterov) [1299338 1252281]
+
+* Mon Feb 29 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.13.1.el7]
+- [net] veth: don't modify ip_summed; doing so treats packets with bad checksums as good (Sabrina Dubroca) [1312430 1307099]
+
+* Tue Feb 23 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.12.1.el7]
+- [md] dm-thin-metadata: fix bug in dm_thin_remove_range() (Mike Snitzer) [1310531 1284833]
+- [md] dm-thin: fix regression in advertised discard limits (Mike Snitzer) [1310531 1284833]
+- [scsi] hpsa: Update driver revision to RH2 (Joseph Szczypek) [1308923 1268073]
+- [scsi] hpsa: fix issues with multilun devices (Joseph Szczypek) [1308923 1268073]
+- [net] tcp: honour SO_BINDTODEVICE for TW_RST case too (Florian Westphal) [1308917 1295557]
+- [net] tcp: send_reset: test for non-NULL sk first (Florian Westphal) [1308917 1295557]
+- [net] add inet_sk_transparent() helper (Florian Westphal) [1308917 1295557]
+- [net] add sk_fullsock() helper (Florian Westphal) [1308917 1295557]
+- [net] ipv6: Fix regression in udp_v6_mcast_next() (Hannes Frederic Sowa) [1308921 1298790]
+- [netdrv] mlx4_en: Remove BUG_ON assert when checking if ring is full (Kamal Heib) [1310132 1258136]
+- [netdrv] cxgb4: changes for new firmware 1.14.4.0 (Sai Vemuri) [1309541 1275825]
+- [netdrv] iwlwifi: pci: add a few more PCI subvendor IDs for the 7265 series (Stanislaw Gruszka) [1304336 1287564]
+- [netdrv] iwlwifi: edit the 3165 series and 8000 series PCI IDs (Stanislaw Gruszka) [1301885 1279780]
+- [netdrv] iwlwifi: Add new PCI IDs for the 8260 series (Stanislaw Gruszka) [1301885 1279780]
+- [mm] memcg: oom_notify use-after-free fix (Rafael Aquini) [1298212 1294114]
+- [powerpc] kvm: Increase memslots to 512 (Thomas Huth) [1297758 1276254]
+- [powerpc] kvm: Implement extension to report number of memslots (Thomas Huth) [1297758 1276254]
+
+* Thu Jan 28 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.11.1.el7]
+- [fs] namespaces: Use task_lock and not rcu to protect nsproxy (Hannes Frederic Sowa) [1300618 1297032]
+- [fs] proc_namespace: simplify testing nsp and nsp->mnt_ns (Hannes Frederic Sowa) [1300618 1297032]
+- [net] possible use after free in dst_release (Hannes Frederic Sowa) [1300610 1296299]
+- [net] fix a race in dst_release() (Hannes Frederic Sowa) [1300610 1296299]
+- [net] ratelimit warnings about dst entry refcount underflow or overflow (Hannes Frederic Sowa) [1300610 1296299]
+- [net] fix IP early demux races (Hannes Frederic Sowa) [1300610 1296299]
+- [usb] xhci: init command timeout timer earlier to avoid deleting it uninitialized (Don Zickus) [1300605 1290202]
+- [scsi] be2iscsi: Fix updating the next pointer during WRB posting (Maurizio Lombardi) [1298981 1229330]
 
 * Sat Jan 23 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.10.1.el7]
 - [of] return NUMA_NO_NODE from fallback of_node_to_nid() (Thadeu Lima de Souza Cascardo) [1300614 1294398]
