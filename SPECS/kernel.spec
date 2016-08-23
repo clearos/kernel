@@ -12,7 +12,7 @@ Summary: The Linux kernel
 %global distro_build 327
 
 %define rpmversion 3.10.0
-%define pkgrelease 327.22.2
+%define pkgrelease 327.22.3
 
 %define pkg_release %{pkgrelease}%{?buildid}
 
@@ -1541,16 +1541,84 @@ fi
 %kernel_variant_files %{with_kdump} kdump
 
 %changelog
-* Tue Jun 28 2016 ClearFoundation <developer@clearfoundation.com> - 3.10.0-327.22.2.v7
+* Tue Aug 23 2016 ClearFoundation <developer@clearfoundation.com> - 3.10.0-327.28.3.v7
 - Change signing key to ClearOS
 - Add IMQ patch and update kABI accordingly
 - Updated IMQ patch
 
-* Thu Jun 23 2016 CentOS Sources <bugs@centos.org> - 3.10.0-327.22.2.el7
+* Thu Aug 18 2016 CentOS Sources <bugs@centos.org> - 3.10.0-327.28.3.el7
 - Apply debranding changes
 
-* Thu Jun 09 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.22.2.el7]
+* Fri Aug 12 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.28.3.el7]
+- [net] tcp: enable per-socket rate limiting of all 'challenge acks' (Florian Westphal) [1355603 1355605] {CVE-2016-5696}
+- [net] tcp: uninline tcp_oow_rate_limited() (Florian Westphal) [1355603 1355605] {CVE-2016-5696}
+- [net] tcp: make challenge acks less predictable (Florian Westphal) [1355603 1355605] {CVE-2016-5696}
+
+* Mon Jun 27 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.28.2.el7]
+- [net] bridge: include in6.h in if_bridge.h for struct in6_addr (Jiri Benc) [1331285 1268057]
+- [net] inet: defines IPPROTO_* needed for module alias generation (Jiri Benc) [1331285 1268057]
+- [net] sync some IP headers with glibc (Jiri Benc) [1331285 1268057]
+
+* Sat Jun 25 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.28.1.el7]
+- [netdrv] e1000: Double Tx descriptors needed check for 82544 (Jarod Wilson) [1349448 1274170]
+- [netdrv] e1000: Do not overestimate descriptor counts in Tx pre-check (Jarod Wilson) [1349448 1274170]
+- [scsi] 3w-9xxx: version string touch (Tomas Henzl) [1348833 1322447]
+- [scsi] 3w-9xxx: don't unmap bounce buffered commands (Tomas Henzl) [1348833 1322447]
+- [scsi] 3w-9xxx: fix command completion race (Tomas Henzl) [1348833 1322447]
+- [fs] gfs2: don't set rgrp gl_object until it's inserted into rgrp tree (Robert S Peterson) [1348829 1344363]
+- [fs] fanotify: fix notification of groups with inode & mount marks (Miklos Szeredi) [1348828 1308393]
+- [fs] ovl: fix permission checking for setattr (Vivek Goyal) [1293980 1293981]
+- [security] keys: potential uninitialized variable (David Howells) [1345935 1341352] {CVE-2016-4470}
+- [tty] Invert tty_lock/ldisc_sem lock order (Herton R. Krzesinski) [1336823 1327403]
+- [tty] Don't hold tty_lock for ldisc release (Herton R. Krzesinski) [1336823 1327403]
+- [tty] Reset hupped state on open (Herton R. Krzesinski) [1336823 1327403]
+- [tty] Fix hangup race with TIOCSETD ioctl (Herton R. Krzesinski) [1336823 1327403]
+- [tty] Clarify ldisc variable (Herton R. Krzesinski) [1336823 1327403]
 - [infiniband] security: Restrict use of the write() interface (Don Dutile) [1332553 1316685] {CVE-2016-4565}
+
+* Thu Jun 23 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.27.1.el7]
+- [md] raid5: check_reshape() shouldn't call mddev_suspend (Jes Sorensen) [1344313 1312828]
+- [net] sctp: Potentially-Failed state should not be reached from unconfirmed state (Xin Long) [1347809 1333696]
+- [net] sctp: fix the transports round robin issue when init is retransmitted (Xin Long) [1347809 1333696]
+- [net] sctp: fix suboptimal edge-case on non-active active/retrans path selection (Xin Long) [1347809 1333696]
+- [net] sctp: spare unnecessary comparison in sctp_trans_elect_best (Xin Long) [1347809 1333696]
+- [net] sctp: improve sctp_select_active_and_retran_path selection (Xin Long) [1347809 1333696]
+- [net] sctp: migrate most recently used transport to ktime (Xin Long) [1347809 1333696]
+- [net] sctp: refactor active path selection (Xin Long) [1347809 1333696]
+- [net] sctp: remove NULL check in sctp_assoc_update_retran_path (Xin Long) [1347809 1333696]
+- [net] sctp: rework multihoming retransmission path selection to rfc4960 (Xin Long) [1347809 1333696]
+- [net] sctp: retran_path not set properly after transports recovering (Xin Long) [1347809 1333696]
+- [mm] memcg: fix endless loop caused by mem_cgroup_iter (Herton R. Krzesinski) [1344750 1297381]
+- [scsi] qla2xxx: Set relogin flag when we fail to queue login requests (Chad Dupuis) [1347344 1273080]
+- [x86] perf/x86/intel/uncore: Add Broadwell-EP uncore support (Jiri Olsa) [1347374 1259976]
+- [x86] perf/x86/intel/uncore: Add Broadwell-DE uncore support (Jiri Olsa) [1348063 1306834]
+- [lib] rhashtable: Do hashing inside of rhashtable_lookup_compare() (Phil Sutter) [1343639 1238749]
+- [s390] mm: four page table levels vs. fork (Hendrik Brueckner) [1341547 1308879] {CVE-2016-2143}
+- [firmware] dmi_scan: Fix UUID endianness for SMBIOS >= 2.6 (Prarit Bhargava) [1340118 1294461]
+- [misc] cxl: Export AFU error buffer via sysfs (Gustavo Duarte) [1343537 1275968]
+- [misc] cxl: Poll for outstanding IRQs when detaching a context (Alexander Gordeev) [1338886 1332487]
+- [misc] cxl: Keep IRQ mappings on context teardown (Alexander Gordeev) [1338886 1332487]
+- [netdrv] mlx4_en: Fix endianness bug in IPV6 csum calculation (kamal heib) [1337431 1325358]
+- [acpi] srat: fix SRAT parsing order with both LAPIC and X2APIC present (Prarit Bhargava) [1336821 1331394]
+
+* Mon Jun 20 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.26.1.el7]
+- [block] blk-mq: fix race between timeout and freeing request (David Milburn) [1347743 1288601]
+- [x86] nmi: Fix use of unallocated cpumask_var_t (Jerry Snitselaar) [1346176 1069217]
+- [x86] nmi: Perform a safe NMI stack trace on all CPUs (Jerry Snitselaar) [1346176 1069217]
+- [kernel] printk: Add per_cpu printk func to allow printk to be diverted (Jerry Snitselaar) [1346176 1069217]
+- [lib] seq: Add minimal support for seq_buf (Jerry Snitselaar) [1346176 1069217]
+- [fs] ovl: use a minimal buffer in ovl_copy_xattr (Vivek Goyal) [1347235 1306358]
+- [fs] ovl: allow zero size xattr (Vivek Goyal) [1347235 1306358]
+
+* Thu Jun 09 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.25.1.el7]
+- [fs] xfs: fix broken multi-fsb buffer logging (Brian Foster) [1344234 1334671]
+
+* Tue May 24 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.24.1.el7]
+- [net] udp: properly support MSG_PEEK with truncated buffers (Sabrina Dubroca) [1339115 1294384]
+
+* Sun May 22 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.23.1.el7]
+- [net] af_unix: Guard against other == sk in unix_dgram_sendmsg (Jakub Sitnicki) [1337513 1285792]
+- [net] unix: avoid use-after-free in ep_remove_wait_queue (Paolo Abeni) [1337513 1285792]
 
 * Mon May 16 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.22.1.el7]
 - [mm] mmu_notifier: fix memory corruption (Jerome Glisse) [1335727 1307042]
