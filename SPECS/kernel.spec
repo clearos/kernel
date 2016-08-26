@@ -12,7 +12,7 @@ Summary: The Linux kernel
 %global distro_build 327
 
 %define rpmversion 3.10.0
-%define pkgrelease 327.22.3
+%define pkgrelease 327.28.3
 
 %define pkg_release %{pkgrelease}%{?buildid}
 
