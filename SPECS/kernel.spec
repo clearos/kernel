@@ -12,7 +12,7 @@ Summary: The Linux kernel
 %global distro_build 327
 
 %define rpmversion 3.10.0
-%define pkgrelease 327.36.1
+%define pkgrelease 327.36.2
 
 %define pkg_release %{pkgrelease}%{?buildid}
 
@@ -1541,13 +1541,16 @@ fi
 %kernel_variant_files %{with_kdump} kdump
 
 %changelog
-* Fri Aug 26 2016 ClearFoundation <developer@clearfoundation.com> - 3.10.0-327.28.3.v7
+* Tue Oct 11 2016 ClearFoundation <developer@clearfoundation.com> - 3.10.0-327.36.2.v7
 - Change signing key to ClearOS
 - Add IMQ patch and update kABI accordingly
 - Updated IMQ patch
 
-* Thu Aug 18 2016 CentOS Sources <bugs@centos.org> - 3.10.0-327.28.3.el7
+* Mon Oct 10 2016 CentOS Sources <bugs@centos.org> - 3.10.0-327.36.2.el7
 - Apply debranding changes
+
+* Tue Sep 27 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.36.2.el7]
+- [net] add recursion limit to GRO (Sabrina Dubroca) [1378405 1374191] {CVE-2016-7039}
 
 * Wed Aug 17 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.36.1.el7]
 - [x86] Use pte_none() to test for empty PTE (Larry Woodman) [1363860 1347159]
