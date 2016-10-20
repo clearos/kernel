@@ -14,6 +14,7 @@ Summary: The Linux kernel
 %define rpmversion 3.10.0
 %define pkgrelease 327.36.2
 
+
 %define pkg_release %{pkgrelease}%{?buildid}
 
 # The kernel tarball/base version
