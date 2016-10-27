@@ -12,8 +12,7 @@ Summary: The Linux kernel
 %global distro_build 327
 
 %define rpmversion 3.10.0
-%define pkgrelease 327.36.2
-
+%define pkgrelease 327.36.3
 
 %define pkg_release %{pkgrelease}%{?buildid}
 
@@ -1542,13 +1541,16 @@ fi
 %kernel_variant_files %{with_kdump} kdump
 
 %changelog
-* Tue Oct 11 2016 ClearFoundation <developer@clearfoundation.com> - 3.10.0-327.36.2.v7
+* Thu Oct 27 2016 ClearFoundation <developer@clearfoundation.com> - 3.10.0-327.36.3.v7
 - Change signing key to ClearOS
 - Add IMQ patch and update kABI accordingly
 - Updated IMQ patch
 
-* Mon Oct 10 2016 CentOS Sources <bugs@centos.org> - 3.10.0-327.36.2.el7
+* Mon Oct 24 2016 CentOS Sources <bugs@centos.org> - 3.10.0-327.36.3.el7
 - Apply debranding changes
+
+* Thu Oct 20 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.36.3.el7]
+- [mm] remove gup_flags FOLL_WRITE games from __get_user_pages() (Alexander Gordeev) [1385123 1385124] {CVE-2016-5195}
 
 * Tue Sep 27 2016 Alexander Gordeev <agordeev@redhat.com> [3.10.0-327.36.2.el7]
 - [net] add recursion limit to GRO (Sabrina Dubroca) [1378405 1374191] {CVE-2016-7039}
