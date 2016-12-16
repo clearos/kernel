@@ -1056,9 +1056,9 @@ diff -ruN linux-3.10.0-327.10.1.v7/drivers/net/Makefile linux-3.10.0-327.10.1.v7
  obj-$(CONFIG_EQUALIZER) += eql.o
  obj-$(CONFIG_IFB) += ifb.o
 +obj-$(CONFIG_IMQ) += imq.o
+ obj-$(CONFIG_MACSEC) += macsec.o
  obj-$(CONFIG_MACVLAN) += macvlan.o
  obj-$(CONFIG_MACVTAP) += macvtap.o
- obj-$(CONFIG_MII) += mii.o
 diff -ruN linux-3.10.0-327.10.1.v7/include/linux/imq.h linux-3.10.0-327.10.1.v7-imq/include/linux/imq.h
 --- linux-3.10.0-327.10.1.v7/include/linux/imq.h	1969-12-31 19:00:00.000000000 -0500
 +++ linux-3.10.0-327.10.1.v7-imq/include/linux/imq.h	2016-03-04 14:21:17.442457880 -0500
@@ -1079,9 +1079,9 @@ diff -ruN linux-3.10.0-327.10.1.v7/include/linux/imq.h linux-3.10.0-327.10.1.v7-
 diff -ruN linux-3.10.0-327.10.1.v7/include/linux/netdevice.h linux-3.10.0-327.10.1.v7-imq/include/linux/netdevice.h
 --- linux-3.10.0-327.10.1.v7/include/linux/netdevice.h	2016-01-23 03:53:07.000000000 -0500
 +++ linux-3.10.0-327.10.1.v7-imq/include/linux/netdevice.h	2016-03-04 14:21:17.445457946 -0500
-@@ -2794,6 +2794,7 @@
+@@ -3159,6 +3159,7 @@
  int dev_get_phys_port_id(struct net_device *dev,
- 			 struct netdev_phys_port_id *ppid);
+ 			 struct netdev_phys_item_id *ppid);
  struct sk_buff *validate_xmit_skb(struct sk_buff *skb, struct net_device *dev);
 +struct sk_buff *validate_xmit_skb_list(struct sk_buff *skb, struct net_device *dev);
  struct sk_buff *dev_hard_start_xmit(struct sk_buff *skb, struct net_device *dev,
@@ -1151,10 +1151,10 @@ diff -ruN linux-3.10.0-327.10.1.v7/include/linux/netfilter_ipv6/ip6t_IMQ.h linux
 diff -ruN linux-3.10.0-327.10.1.v7/include/linux/skbuff.h linux-3.10.0-327.10.1.v7-imq/include/linux/skbuff.h
 --- linux-3.10.0-327.10.1.v7/include/linux/skbuff.h	2016-01-23 03:53:07.000000000 -0500
 +++ linux-3.10.0-327.10.1.v7-imq/include/linux/skbuff.h	2016-03-04 14:21:17.461458294 -0500
-@@ -34,6 +34,9 @@
- #include <linux/netdev_features.h>
+@@ -35,6 +35,9 @@
  #include <linux/sched.h>
  #include <net/flow_keys.h>
+ #include <linux/in6.h>
 +#if defined(CONFIG_IMQ) || defined(CONFIG_IMQ_MODULE)
 +#include <linux/imq.h>
 +#endif
@@ -1171,14 +1171,14 @@ diff -ruN linux-3.10.0-327.10.1.v7/include/linux/skbuff.h linux-3.10.0-327.10.1.
  
  	unsigned long		_skb_refdst;
  #ifdef CONFIG_XFRM
-@@ -570,6 +576,9 @@
+@@ -629,6 +632,9 @@
  #if defined(CONFIG_NF_CONNTRACK) || defined(CONFIG_NF_CONNTRACK_MODULE)
  	struct nf_conntrack	*nfct;
  #endif
 +#if defined(CONFIG_IMQ) || defined(CONFIG_IMQ_MODULE)
 +       struct nf_queue_entry   *nf_queue_entry;
 +#endif
- #ifdef CONFIG_BRIDGE_NETFILTER
+ #if IS_ENABLED(CONFIG_BRIDGE_NETFILTER)
  	struct nf_bridge_info	*nf_bridge;
  #endif
 @@ -647,6 +656,9 @@
@@ -1204,7 +1204,7 @@ diff -ruN linux-3.10.0-327.10.1.v7/include/linux/skbuff.h linux-3.10.0-327.10.1.
  extern struct kmem_cache *skbuff_head_cache;
  
  void kfree_skb_partial(struct sk_buff *skb, bool head_stolen);
-@@ -3184,6 +3202,10 @@
+@@ -3302,6 +3308,10 @@
  	nf_conntrack_get(src->nfct);
  	dst->nfctinfo = src->nfctinfo;
  #endif
@@ -1212,7 +1212,7 @@ diff -ruN linux-3.10.0-327.10.1.v7/include/linux/skbuff.h linux-3.10.0-327.10.1.
 +       dst->imq_flags = src->imq_flags;
 +       dst->nf_queue_entry = src->nf_queue_entry;
 +#endif
- #ifdef CONFIG_BRIDGE_NETFILTER
+ #if IS_ENABLED(CONFIG_BRIDGE_NETFILTER)
  	dst->nf_bridge  = src->nf_bridge;
  	nf_bridge_get(src->nf_bridge);
 diff -ruN linux-3.10.0-327.10.1.v7/include/net/netfilter/nf_queue.h linux-3.10.0-327.10.1.v7-imq/include/net/netfilter/nf_queue.h
@@ -1259,10 +1259,10 @@ diff -ruN linux-3.10.0-327.10.1.v7/include/uapi/linux/netfilter.h linux-3.10.0-3
 diff -ruN linux-3.10.0-327.10.1.v7/net/core/dev.c linux-3.10.0-327.10.1.v7-imq/net/core/dev.c
 --- linux-3.10.0-327.10.1.v7/net/core/dev.c	2016-01-23 03:53:07.000000000 -0500
 +++ linux-3.10.0-327.10.1.v7-imq/net/core/dev.c	2016-03-04 14:21:38.893924613 -0500
-@@ -134,6 +134,9 @@
+@@ -135,6 +135,9 @@
+ #include <linux/hashtable.h>
  #include <linux/vmalloc.h>
  #include <linux/hrtimer.h>
- #include <net/bonding.h>
 +#if defined(CONFIG_IMQ) || defined(CONFIG_IMQ_MODULE)
 +#include <linux/imq.h>
 +#endif
@@ -1289,9 +1289,9 @@ diff -ruN linux-3.10.0-327.10.1.v7/net/core/dev.c linux-3.10.0-327.10.1.v7-imq/n
  
  static struct sk_buff *validate_xmit_vlan(struct sk_buff *skb,
  					  netdev_features_t features)
-@@ -2644,6 +2652,34 @@
- 	return NULL;
+@@ -2795,6 +2798,34 @@
  }
+ EXPORT_SYMBOL_GPL(dev_hard_start_xmit);
  
 +struct sk_buff *validate_xmit_skb_list(struct sk_buff *skb, struct net_device *dev)
 +{
@@ -1444,10 +1444,10 @@ diff -ruN linux-3.10.0-327.10.1.v7/net/core/skbuff.c linux-3.10.0-327.10.1.v7-im
  #if IS_ENABLED(CONFIG_NF_CONNTRACK)
  	nf_conntrack_put(skb->nfct);
  #endif
-@@ -835,6 +938,10 @@
- 	new->mark		= old->mark;
- 	new->skb_iif		= old->skb_iif;
- 	__nf_copy(new, old);
+@@ -970,6 +970,10 @@
+ #if IS_ENABLED(CONFIG_IP_VS)
+ 	new->ipvs_property	= old->ipvs_property;
+ #endif
 +#if defined(CONFIG_IMQ) || defined(CONFIG_IMQ_MODULE)
 +	new->cb_next = NULL;
 +	/*skb_copy_stored_cb(new, old);*/
