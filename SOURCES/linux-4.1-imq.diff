@@ -1281,14 +1281,6 @@ diff -ruN linux-3.10.0-327.10.1.v7/net/core/dev.c linux-3.10.0-327.10.1.v7-imq/n
  		dev_queue_xmit_nit(skb, dev);
  
  	len = skb->len;
-@@ -2582,6 +2589,7 @@
- 	*ret = rc;
- 	return skb;
- }
-+EXPORT_SYMBOL(dev_hard_start_xmit);
- 
- static struct sk_buff *validate_xmit_vlan(struct sk_buff *skb,
- 					  netdev_features_t features)
 @@ -2795,6 +2798,34 @@
  }
  EXPORT_SYMBOL_GPL(dev_hard_start_xmit);
