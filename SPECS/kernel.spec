@@ -14,10 +14,10 @@ Summary: The Linux kernel
 %global distro_build 514
 
 %define rpmversion 3.10.0
-%define pkgrelease 514.2.2.el7
+%define pkgrelease 514.10.2.el7
 
 # allow pkg_release to have configurable %{?dist} tag
-%define specrelease 514.2.2%{?dist}
+%define specrelease 514.10.2%{?dist}
 
 %define pkg_release %{specrelease}%{?buildid}
 
@@ -345,7 +345,7 @@ Source10: sign-modules
 Source11: x509.genkey
 Source12: extra_certificates
 %if %{?released_kernel}
-Source13: centos.cer
+Source13: centos.cer 
 Source14: secureboot.cer
 %define pesign_name redhatsecureboot301
 %else
@@ -1555,16 +1555,146 @@ fi
 %kernel_variant_files %{with_kdump} kdump
 
 %changelog
-* Fri Dec 16 2016 ClearFoundation <developer@clearfoundation.com> - 3.10.0-514.2.2.v7
+* Fri Mar 10 2016 ClearFoundation <developer@clearfoundation.com> - 3.10.0-514.10.2.v7
 - Change signing key to ClearOS
 - Add IMQ patch and update kABI accordingly
 - Updated IMQ patch
 
-* Tue Dec 06 2016 CentOS Sources <bugs@centos.org> - 3.10.0-514.2.2.el7
-- Apply debranding changes
+* Thu Mar  2 2017 Johnny Hughes <johnny@centos.org> [3.10.0-514.10.2.el7]
+- Manually debrand after auto debranding failed.
 
-* Wed Nov 16 2016 Frantisek Hrbata <fhrbata@hrbata.com> [3.10.0-514.2.2.el7]
+* Mon Feb 20 2017 Frantisek Hrbata <fhrbata@hrbata.com> [3.10.0-514.10.2.el7]
+- [net] dccp: fix freeing skb too early for IPV6_RECVPKTINFO (Hannes Frederic Sowa) [1423462 1423463]
+
+* Mon Jan 30 2017 Frantisek Hrbata <fhrbata@hrbata.com> [3.10.0-514.10.1.el7]
+- [block] blk-mq: Fix NULL pointer updating nr_requests (David Milburn) [1416133 1384066]
+- [scsi] cxlflash: Fix crash in cxlflash_restore_luntable() (Gustavo Duarte) [1415146 1400524]
+- [scsi] cxlflash: Improve context_reset() logic (Gustavo Duarte) [1415146 1400524]
+- [scsi] cxlflash: Avoid command room violation (Gustavo Duarte) [1415146 1400524]
+- [x86] Mark Kaby Lake with Kaby Lake PCH as supported (David Arcari) [1415094 1391219]
+- [scsi] be2iscsi: Add checks to validate completions (Maurizio Lombardi) [1414687 1324918]
+- [scsi] be2iscsi: Fix bad WRB index error (Maurizio Lombardi) [1414687 1324918]
+- [scsi] be2iscsi: Add lock to protect WRB alloc and free (Maurizio Lombardi) [1414687 1324918]
+- [mm] meminit: initialise more memory for inode/dentry hash tables in early boot (Yasuaki Ishimatsu) [1413623 1404584]
+- [s390] mem_detect: Revert "add DAT sanity check" (Hendrik Brueckner) [1413600 1391540]
+- [cpufreq] intel_pstate: Fix code ordering in intel_pstate_set_policy() (Prarit Bhargava) [1411818 1398072]
+- [scsi] cxlflash: Improve EEH recovery time (Steve Best) [1402442 1397588]
+- [scsi] cxlflash: Fix to avoid EEH and host reset collisions (Steve Best) [1402442 1397588]
+- [scsi] cxlflash: Remove the device cleanly in the system shutdown path (Steve Best) [1402442 1397588]
+- [scsi] cxlflash: Scan host only after the port is ready for I/O (Steve Best) [1402442 1397588]
+- [x86] kvm: x86: Check memopp before dereference (Mateusz Guzik) [1395805 1395806] {CVE-2016-8630}
+- [vfio] pci: Fix integer overflows, bitmask check (Mateusz Guzik) [1394627 1394991 1394628 1394992] {CVE-2016-9083 CVE-2016-9084}
+- [acpi] acpi / scan: use platform bus type by default for _HID enumeration (Tony Camuso) [1393727 1383505]
+- [acpi] acpi / scan: introduce platform_id device PNP type flag (Tony Camuso) [1393727 1383505]
+- [char] ipmi: Convert the IPMI SI ACPI handling to a platform device (Tony Camuso) [1393727 1383505]
+- [acpi] acpi / ipmi: Cleanup coding styles (David Arcari) [1393725 1373703]
+- [acpi] acpi / ipmi: Cleanup some inclusion codes (David Arcari) [1393725 1373703]
+- [acpi] acpi / ipmi: Cleanup some initialization codes (David Arcari) [1393725 1373703]
+- [acpi] acpi / ipmi: Cleanup several acpi_ipmi_device members (David Arcari) [1393725 1373703]
+- [acpi] acpi / ipmi: Add reference counting for ACPI IPMI transfers (David Arcari) [1393725 1373703]
+- [acpi] acpi / ipmi: Use global IPMI operation region handler (David Arcari) [1393725 1373703]
+- [acpi] acpi / ipmi: Fix race caused by the unprotected ACPI IPMI user (David Arcari) [1393725 1373703]
+- [acpi] acpi / ipmi: Fix race caused by the timed out ACPI IPMI transfers (David Arcari) [1393725 1373703]
+- [acpi] acpi / ipmi: Fix race caused by the unprotected ACPI IPMI transfers (David Arcari) [1393725 1373703]
+- [acpi] acpi / ipmi: Fix potential response buffer overflow (David Arcari) [1393725 1373703]
+
+* Sat Jan 21 2017 Frantisek Hrbata <fhrbata@hrbata.com> [3.10.0-514.9.1.el7]
+- [drm] i915/kbl: Remove preliminary_hw_support protection from KBL. (Rob Clark) [1413092 1305702]
+- [netdrv] slip: Fix deadlock in write_wakeup (Steve Best) [1412225 1403497]
+- [netdrv] slip: fix spinlock variant (Steve Best) [1412225 1403497]
+- [kernel] kmod: use system_unbound_wq instead of khelper (Luiz Capitulino) [1411816 1395860]
+- [nvme] switch abort to blk_execute_rq_nowait (David Milburn) [1411669 1392923]
+- [netdrv] ibmveth: calculate gso_segs for large packets (Gustavo Duarte) [1411382 1361958]
+- [netdrv] ibmveth: set correct gso_size and gso_type (Gustavo Duarte) [1411382 1361958]
+- [netdrv] allow macvlans to move to net namespace (Jarod Wilson) [1409829 1368830]
+- [pci] Set Read Completion Boundary to 128 iff Root Port supports it (_HPX) (Myron Stowe) [1406290 1387674]
+- [pci] Export pcie_find_root_port() (Myron Stowe) [1406290 1387674]
+- [rtc] cmos: Initialize hpet timer before irq is registered (Pratyush Anand) [1404184 1299001]
+- [x86] amd: Fix cpu_llc_id for AMD Fam17h systems (Suravee Suthikulpanit) [1402444 1395399]
+- [powerpc] powernv: Fix stale PE primary bus (Steve Best) [1402440 1395275]
+- [misc] cxl: Fix coredump generation when cxl_get_fd() is used (Gustavo Duarte) [1402439 1397943]
+- [pci] cxl: use pcibios_free_controller_deferred() when removing vPHBs (Gustavo Duarte) [1402438 1395323]
+- [scsi] qla2xxx: do not abort all commands in the adapter during EEH recovery (Gustavo Duarte) [1402436 1393254]
+- [scsi] qla2xxx: fix invalid DMA access after command aborts in PCI device remove (Gustavo Duarte) [1402436 1393254]
+- [scsi] qla2xxx: do not queue commands when unloading (Gustavo Duarte) [1402436 1393254]
+- [net] packet: fix race condition in packet_set_ring (Hangbin Liu) [1401852 1401853] {CVE-2016-8655}
+
+* Tue Jan 17 2017 Frantisek Hrbata <fhrbata@hrbata.com> [3.10.0-514.8.1.el7]
+- [netdrv] i40e: Fix corruption when transferring large files (Stefan Assmann) [1413101 1404060]
+
+* Wed Dec 21 2016 Frantisek Hrbata <fhrbata@hrbata.com> [3.10.0-514.7.1.el7]
+- [kernel] printk: avoid livelock if another CPU printks continuously (Denys Vlasenko) [1402314 1294066]
+
+* Sat Dec 10 2016 Frantisek Hrbata <fhrbata@hrbata.com> [3.10.0-514.6.1.el7]
+- [net] sctp: validate chunk len before actually using it (Hangbin Liu) [1399458 1399459] {CVE-2016-9555}
+- [net] sctp: rename WORD_TRUNC/ROUND macros (Hangbin Liu) [1399458 1399459] {CVE-2016-9555}
+- [net] sctp: keep fragmentation point aligned to word size (Hangbin Liu) [1399458 1399459] {CVE-2016-9555}
+- [x86] Mark Intel Purley supported (Steve Best) [1402824 1371748]
+- [acpi] sleep: Do not save NVS for new machines to accelerate S3 (Prarit Bhargava) [1402326 1385527]
+- [scsi] megaraid_sas: Send SYNCHRONIZE_CACHE for VD to firmware (Tomas Henzl) [1398179 1380447]
+- [scsi] megaraid_sas: Fix data integrity failure for JBOD (passthrough) devices (Tomas Henzl) [1398179 1380447]
+- [scsi] megaraid_sas: fix macro MEGASAS_IS_LOGICAL to avoid regression (Tomas Henzl) [1398179 1380447]
+- [netdrv] net/hyperv: avoid uninitialized variable (Vitaly Kuznetsov) [1395578 1392220]
+- [netdrv] netvsc: Remove mistaken udp.h inclusion (Vitaly Kuznetsov) [1395578 1392220]
+- [netdrv] netvsc: fix checksum on UDP IPV6 (Vitaly Kuznetsov) [1395578 1392220]
+- [netdrv] hv_netvsc: add ethtool statistics for tx packet issues (Vitaly Kuznetsov) [1395578 1392220]
+- [netdrv] hv_netvsc: rearrange start_xmit (Vitaly Kuznetsov) [1395578 1392220]
+- [fs] Retry operation on EREMOTEIO on an interrupted slot (Steve Dickson) [1394710 1378981]
+- [fs] rbd: don't retry watch reregistration if header object is gone (Ilya Dryomov) [1393485 1378186]
+- [fs] rbd: don't wait for the lock forever if blacklisted (Ilya Dryomov) [1393485 1378186]
+- [fs] rbd: lock_on_read map option (Ilya Dryomov) [1393485 1378186]
+- [hv] do not lose pending heartbeat vmbus packets (Vitaly Kuznetsov) [1392035 1378615]
+- [netdrv] netvsc: fix incorrect receive checksum offloading (Vitaly Kuznetsov) [1391617 1388702]
+- [x86] kvm: lapic: cap __delay at lapic_timer_advance_ns (Marcelo Tosatti) [1391614 1389431]
+- [x86] kvm: x86: move nsec_to_cycles from x86.c to x86.h (Marcelo Tosatti) [1391614 1389431]
+- [net] tcp: fix use after free in tcp_xmit_retransmit_queue() (Mateusz Guzik) [1379530 1379531] {CVE-2016-6828}
+
+* Mon Dec 05 2016 Frantisek Hrbata <fhrbata@hrbata.com> [3.10.0-514.5.1.el7]
+- [fs] Fix regression which breaks DFS mounting (Sachin Prabhu) [1400055 1302329]
+- [fs] Move check for prefix path to within cifs_get_root() (Sachin Prabhu) [1400055 1302329]
+- [fs] Compare prepaths when comparing superblocks (Sachin Prabhu) [1400055 1302329]
+- [fs] Fix memory leaks in cifs_do_mount() (Sachin Prabhu) [1400055 1302329]
+- [fs] cifs: make share unaccessible at root level mountable (Sachin Prabhu) [1400055 1302329]
+- [kernel] sched: Fix possible divide by zero in avg_atom() calculation (Mateusz Guzik) [1398361 1392466]
+- [scsi] megaraid_sas: Do not set MPI2_TYPE_CUDA for JBOD FP path for FW which does not support JBOD sequence map (Tomas Henzl) [1398175 1380441]
+- [x86] smp: Fix __max_logical_packages value setup (Prarit Bhargava) [1398173 1394239]
+- [x86] revert "smp: Fix __max_logical_packages value setup" (Prarit Bhargava) [1398173 1394239]
+- [watchdog] hpwdt: add support for iLO5 (Linda Knippers) [1397747 1382798]
+- [x86] kexec: Fix kexec crash in syscall kexec_file_load() (Pingfan Liu) [1395573 1385109]
+- [powerpc] ppc64: Fix incorrect return value from __copy_tofrom_user (Steve Best) [1395565 1387244]
+- [scsi] megaraid-sas: request irqs later (Tomas Henzl) [1394711 1392978]
+- [netdrv] i40e: Fix errors resulted while turning off TSO (Stefan Assmann) [1394708 1378509]
+- [fs] ext4: pre-zero allocated blocks for DAX IO (Eric Sandeen) [1394707 1367989]
+- [powerpc] pseries: use pci_host_bridge.release_fn() to kfree(phb) (Steve Best) [1393724 1385635]
+- [misc] genwqe: Change default access rights for device node (Steve Best) [1393723 1325797]
+- [misc] hpilo: Changes to support new security states in iLO5 FW (Nigel Croxon) [1393720 1376576]
+- [kernel] sched/core: Fix a race between try_to_wake_up() and a woken up task (Lauro Ramos Venancio) [1393719 1379256]
+- [hid] i2c-hid: exit if the IRQ is not valid (David Arcari) [1393717 1376599]
+- [x86] Add support for missing Kabylake Sunrise Point PCH (David Arcari) [1392033 1379401]
+- [net] sctp: not return ENOMEM err back in sctp_packet_transmit (Xin Long) [1392025 1371362]
+- [net] sctp: make sctp_outq_flush/tail/uncork return void (Xin Long) [1392025 1371362]
+- [net] sctp: save transmit error to sk_err in sctp_outq_flush (Xin Long) [1392025 1371362]
+- [net] sctp: free msg->chunks when sctp_primitive_SEND return err (Xin Long) [1392025 1371362]
+- [net] sctp: do not return the transmit err back to sctp_sendmsg (Xin Long) [1392025 1371362]
+- [net] sctp: remove the unnecessary state check in sctp_outq_tail (Xin Long) [1392025 1371362]
+- [net] netdev, sched/wait: Fix sleeping inside wait event (Paolo Abeni) [1392024 1382175]
+- [net] Separate the close_list and the unreg_list (Paolo Abeni) [1392024 1382175]
+- [vfio] pci: Fix ordering of eventfd vs virqfd shutdown (Alex Williamson) [1391611 1322026]
+- [net] Fix use after free in the recvmmsg exit path (Davide Caratti) [1390806 1390047] {CVE-2016-7117}
+- [fs] nfsd: don't return an unhashed lock stateid after taking mutex ("J. Bruce Fields") [1390672 1368577]
+- [fs] nfsd: Fix race between FREE_STATEID and LOCK ("J. Bruce Fields") [1390672 1368577]
+- [fs] nfsd: Close race between nfsd4_release_lockowner and nfsd4_lock ("J. Bruce Fields") [1390672 1368577]
+- [fs] nfsd: Extend the mutex holding region around in nfsd4_process_open2() ("J. Bruce Fields") [1390672 1368577]
+- [fs] nfsd: Always lock state exclusively ("J. Bruce Fields") [1390672 1368577]
+- [infiniband] ib/ipoib: move back IB LL address into the hard header (Jonathan Toppins) [1390668 1378656]
+
+* Wed Nov 16 2016 Frantisek Hrbata <fhrbata@hrbata.com> [3.10.0-514.4.1.el7]
+- [net] rtnetlink: fix rtnl_vfinfo_size (Sabrina Dubroca) [1395811 1392128]
+- [netdrv] ixgbe: test for trust in macvlan adjustments for vf (Ken Cox) [1395572 1379787]
 - [kernel] timekeeping: Copy the shadow-timekeeper over the real timekeeper last (Prarit Bhargava) [1395577 1344747]
+
+* Mon Nov 07 2016 Frantisek Hrbata <fhrbata@hrbata.com> [3.10.0-514.3.1.el7]
+- [net] team: Fixing a bug in team driver due to incorrect 'unsigned int' to 'int' conversion (Hangbin Liu) [1392023 1382098]
 
 * Fri Nov 04 2016 Frantisek Hrbata <fhrbata@hrbata.com> [3.10.0-514.2.1.el7]
 - [firmware] efi: Fix usage of illegal alignment on efi_low_alloc (Lenny Szubowicz) [1392044 1387689]
