@@ -1555,7 +1555,7 @@ fi
 %kernel_variant_files %{with_kdump} kdump
 
 %changelog
-* Fri Mar 10 2016 ClearFoundation <developer@clearfoundation.com> - 3.10.0-514.10.2.v7
+* Fri Mar 10 2017 ClearFoundation <developer@clearfoundation.com> - 3.10.0-514.10.2.v7
 - Change signing key to ClearOS
 - Add IMQ patch and update kABI accordingly
 - Updated IMQ patch
