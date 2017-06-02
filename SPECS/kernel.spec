@@ -17,7 +17,7 @@ Summary: The Linux kernel
 %define pkgrelease 514.16.1.el7
 
 # allow pkg_release to have configurable %{?dist} tag
-%define specrelease 514.16.1%{?dist}
+%define specrelease 514.16.1%{?dist}.1
 
 %define pkg_release %{specrelease}%{?buildid}
 
@@ -389,6 +389,7 @@ Patch1002: debrand-rh-i686-cpu.patch
 
 # ClearOS patches (80000+)
 Patch80000: linux-4.1-imq.diff
+Patch80001: 0001-RHEL-7.3-Backporting-from-Kernel-4.9-for-black-scree.patch
 # end of ClearOS patches
 
 BuildRoot: %{_tmppath}/kernel-%{KVRA}-root
@@ -700,6 +701,7 @@ ApplyOptionalPatch debrand-rh-i686-cpu.patch
 # MUST be called *before* Makefile.config runs below!
 %ifarch x86_64
 ApplyOptionalPatch linux-4.1-imq.diff
+ApplyOptionalPatch 0001-RHEL-7.3-Backporting-from-Kernel-4.9-for-black-scree.patch
 %endif
 # end of ClearOS patches
 
@@ -1555,10 +1557,11 @@ fi
 %kernel_variant_files %{with_kdump} kdump
 
 %changelog
-* Tue Apr 18 2017 ClearFoundation <developer@clearfoundation.com> - 3.10.0-514.16.1.v7
+* Fri Jun 02 2017 ClearFoundation <developer@clearfoundation.com> - 3.10.0-514.16.1.v7.1
 - Change signing key to ClearOS
 - Add IMQ patch and update kABI accordingly
 - Updated IMQ patch
+- Add Linux VCE patch
 
 * Wed Apr 12 2017 CentOS Sources <bugs@centos.org> - 3.10.0-514.16.1.el7
 - Apply debranding changes
