@@ -1,0 +1,160 @@
+From 2bf7f6992963c92e10665fa1923f3b9c5fbb1fe9 Mon Sep 17 00:00:00 2001
+From: root <root@localhost.localdomain>
+Date: Wed, 31 May 2017 01:06:49 -0400
+Subject: [PATCH 1/1] RHEL 7.3: Backporting from Kernel 4.9 for black screen
+ issue during installation/booting due to VCE ring failure. Program ring for
+ vce instance 1 at  its register space  when only one instance is available
+
+Signed-off-by: root <root@localhost.localdomain>
+---
+ drivers/gpu/drm/amd/amdgpu/vce_v3_0.c | 85 ++++++++++++++++++++++++++---------
+ 1 file changed, 65 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+index ce468ee..583447d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+@@ -40,9 +40,13 @@
+ 
+ #define GRBM_GFX_INDEX__VCE_INSTANCE__SHIFT	0x04
+ #define GRBM_GFX_INDEX__VCE_INSTANCE_MASK	0x10
++#define GRBM_GFX_INDEX_VCE_ALL_PIPE 		0x07
+ #define mmVCE_LMI_VCPU_CACHE_40BIT_BAR0 	0x8616
+ #define mmVCE_LMI_VCPU_CACHE_40BIT_BAR1 	0x8617
+ #define mmVCE_LMI_VCPU_CACHE_40BIT_BAR2 	0x8618
++#define mmGRBM_GFX_INDEX_DEFAULT 0xE0000000
++
++#define GET_VCE_INSTANCE(i) ((i) << GRBM_GFX_INDEX__VCE_INSTANCE__SHIFT | GRBM_GFX_INDEX_VCE_ALL_PIPE)
+ 
+ #define VCE_V3_0_FW_SIZE	(384 * 1024)
+ #define VCE_V3_0_STACK_SIZE	(64 * 1024)
+@@ -62,11 +66,23 @@ static void vce_v3_0_set_irq_funcs(struct amdgpu_device *adev);
+ static uint32_t vce_v3_0_ring_get_rptr(struct amdgpu_ring *ring)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
++	u32 v;
+ 
++	if (adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
++		mutex_lock(&adev->grbm_idx_mutex);
++		WREG32(mmGRBM_GFX_INDEX, GET_VCE_INSTANCE(1));
++	}
++ 
+ 	if (ring == &adev->vce.ring[0])
+-		return RREG32(mmVCE_RB_RPTR);
++		v = RREG32(mmVCE_RB_RPTR);
+ 	else
+-		return RREG32(mmVCE_RB_RPTR2);
++		v = RREG32(mmVCE_RB_RPTR2);
++	if (adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
++		WREG32(mmGRBM_GFX_INDEX, mmGRBM_GFX_INDEX_DEFAULT);
++		mutex_unlock(&adev->grbm_idx_mutex);
++	}
++
++	return v;
+ }
+ 
+ /**
+@@ -79,11 +95,23 @@ static uint32_t vce_v3_0_ring_get_rptr(struct amdgpu_ring *ring)
+ static uint32_t vce_v3_0_ring_get_wptr(struct amdgpu_ring *ring)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
++	u32 v;
++ 
++	if (adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
++		mutex_lock(&adev->grbm_idx_mutex);
++		WREG32(mmGRBM_GFX_INDEX, GET_VCE_INSTANCE(1));
++	}
+ 
+ 	if (ring == &adev->vce.ring[0])
+-		return RREG32(mmVCE_RB_WPTR);
++		v = RREG32(mmVCE_RB_WPTR);
+ 	else
+-		return RREG32(mmVCE_RB_WPTR2);
++		v = RREG32(mmVCE_RB_WPTR2);
++	if (adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
++		WREG32(mmGRBM_GFX_INDEX, mmGRBM_GFX_INDEX_DEFAULT);
++		mutex_unlock(&adev->grbm_idx_mutex);
++	}
++
++	return v;
+ }
+ 
+ /**
+@@ -96,11 +124,19 @@ static uint32_t vce_v3_0_ring_get_wptr(struct amdgpu_ring *ring)
+ static void vce_v3_0_ring_set_wptr(struct amdgpu_ring *ring)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
++	if (adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
++		mutex_lock(&adev->grbm_idx_mutex);
++		WREG32(mmGRBM_GFX_INDEX, GET_VCE_INSTANCE(1));
++	}
+ 
+ 	if (ring == &adev->vce.ring[0])
+ 		WREG32(mmVCE_RB_WPTR, ring->wptr);
+ 	else
+ 		WREG32(mmVCE_RB_WPTR2, ring->wptr);
++	if (adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
++		WREG32(mmGRBM_GFX_INDEX, mmGRBM_GFX_INDEX_DEFAULT);
++		mutex_unlock(&adev->grbm_idx_mutex);
++	}
+ }
+ 
+ static void vce_v3_0_override_vce_clock_gating(struct amdgpu_device *adev, bool override)
+@@ -216,7 +252,31 @@ static int vce_v3_0_start(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ring *ring;
+ 	int idx, i, j, r;
+-
++	/* we need program ring buffer on instance 1 register space domain
++	when only if instance 1 available, with two instances or instance 0
++	we need only program instance 0 regsiter space domain for ring */
++	if (adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
++		mutex_lock(&adev->grbm_idx_mutex);
++		WREG32(mmGRBM_GFX_INDEX, GET_VCE_INSTANCE(1));
++	}
++        ring = &adev->vce.ring[0];
++        WREG32(mmVCE_RB_RPTR, ring->wptr);
++        WREG32(mmVCE_RB_WPTR, ring->wptr);
++        WREG32(mmVCE_RB_BASE_LO, ring->gpu_addr);
++        WREG32(mmVCE_RB_BASE_HI, upper_32_bits(ring->gpu_addr));
++        WREG32(mmVCE_RB_SIZE, ring->ring_size / 4);
++
++        ring = &adev->vce.ring[1];
++        WREG32(mmVCE_RB_RPTR2, ring->wptr);
++        WREG32(mmVCE_RB_WPTR2, ring->wptr);
++        WREG32(mmVCE_RB_BASE_LO2, ring->gpu_addr);
++        WREG32(mmVCE_RB_BASE_HI2, upper_32_bits(ring->gpu_addr));
++        WREG32(mmVCE_RB_SIZE2, ring->ring_size / 4);
++
++	if (adev->vce.harvest_config == AMDGPU_VCE_HARVEST_VCE0) {
++		WREG32(mmGRBM_GFX_INDEX, mmGRBM_GFX_INDEX_DEFAULT);
++		mutex_unlock(&adev->grbm_idx_mutex);
++	}
+ 	mutex_lock(&adev->grbm_idx_mutex);
+ 	for (idx = 0; idx < 2; ++idx) {
+ 
+@@ -289,21 +349,6 @@ static int vce_v3_0_start(struct amdgpu_device *adev)
+ 
+ 	WREG32_P(mmGRBM_GFX_INDEX, 0, ~GRBM_GFX_INDEX__VCE_INSTANCE_MASK);
+ 	mutex_unlock(&adev->grbm_idx_mutex);
+-
+-	ring = &adev->vce.ring[0];
+-	WREG32(mmVCE_RB_RPTR, ring->wptr);
+-	WREG32(mmVCE_RB_WPTR, ring->wptr);
+-	WREG32(mmVCE_RB_BASE_LO, ring->gpu_addr);
+-	WREG32(mmVCE_RB_BASE_HI, upper_32_bits(ring->gpu_addr));
+-	WREG32(mmVCE_RB_SIZE, ring->ring_size / 4);
+-
+-	ring = &adev->vce.ring[1];
+-	WREG32(mmVCE_RB_RPTR2, ring->wptr);
+-	WREG32(mmVCE_RB_WPTR2, ring->wptr);
+-	WREG32(mmVCE_RB_BASE_LO2, ring->gpu_addr);
+-	WREG32(mmVCE_RB_BASE_HI2, upper_32_bits(ring->gpu_addr));
+-	WREG32(mmVCE_RB_SIZE2, ring->ring_size / 4);
+-
+ 	return 0;
+ }
+ 
+-- 
+1.8.3.1
+
