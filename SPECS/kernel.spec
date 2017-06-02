@@ -17,7 +17,7 @@ Summary: The Linux kernel
 %define pkgrelease 514.16.1.el7
 
 # allow pkg_release to have configurable %{?dist} tag
-%define specrelease 514.16.1%{?dist}
+%define specrelease 514.16.1%{?dist}.1
 
 %define pkg_release %{specrelease}%{?buildid}
 
@@ -388,6 +388,7 @@ Patch1001: debrand-rh_taint.patch
 Patch1002: debrand-rh-i686-cpu.patch
 
 # ClearOS patches (80000+)
+Patch70000: 0001-RHEL-7.3-Backporting-from-Kernel-4.9-for-black-scree.patch
 Patch80000: linux-4.1-imq.diff
 # end of ClearOS patches
 
@@ -697,6 +698,7 @@ ApplyOptionalPatch debrand-rh_taint.patch
 ApplyOptionalPatch debrand-rh-i686-cpu.patch
 
 # ClearOS patches (80000+)
+ApplyOptionalPatch 0001-RHEL-7.3-Backporting-from-Kernel-4.9-for-black-scree.patch
 # MUST be called *before* Makefile.config runs below!
 %ifarch x86_64
 ApplyOptionalPatch linux-4.1-imq.diff
