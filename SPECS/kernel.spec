@@ -17,7 +17,7 @@ Summary: The Linux kernel
 %define pkgrelease 514.21.1.el7
 
 # allow pkg_release to have configurable %{?dist} tag
-%define specrelease 514.21.1%{?dist}
+%define specrelease 514.21.1%{?dist}.1
 
 %define pkg_release %{specrelease}%{?buildid}
 
