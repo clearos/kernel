@@ -14,10 +14,10 @@ Summary: The Linux kernel
 %global distro_build 514
 
 %define rpmversion 3.10.0
-%define pkgrelease 514.21.1.el7
+%define pkgrelease 514.21.2.el7
 
 # allow pkg_release to have configurable %{?dist} tag
-%define specrelease 514.21.1%{?dist}.1
+%define specrelease 514.21.2%{?dist}
 
 %define pkg_release %{specrelease}%{?buildid}
 
@@ -336,7 +336,7 @@ BuildRequires: rpm-build >= 4.9.0-1, elfutils >= 0.153-1
 BuildRequires: glibc-static
 %endif
 
-Source0: linux-%{rheltarball}.tar.xz
+Source0: linux-%{rpmversion}-%{pkgrelease}.tar.xz
 
 Source1: Makefile.common
 
@@ -1282,8 +1282,8 @@ make %{?cross_opts} ARCH=%{hdrarch} DESTDIR=$RPM_BUILD_ROOT bootwrapper_install 
 
 %if %{with_doc}
 # Red Hat UEFI Secure Boot CA cert, which can be used to authenticate the kernel
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/doc/kernel-keys/%{rpmversion}-%{pkg_release}
-install -m 0644 %{SOURCE13} $RPM_BUILD_ROOT%{_datadir}/doc/kernel-keys/%{rpmversion}-%{pkg_release}/kernel-signing-ca.cer
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/doc/kernel-keys/%{rpmversion}-%{pkgrelease}
+install -m 0644 %{SOURCE13} $RPM_BUILD_ROOT%{_datadir}/doc/kernel-keys/%{rpmversion}-%{pkgrelease}/kernel-signing-ca.cer
 %endif
 
 ###
@@ -1426,8 +1426,8 @@ fi
 %dir %{_datadir}/doc/kernel-doc-%{rpmversion}/Documentation
 %dir %{_datadir}/doc/kernel-doc-%{rpmversion}
 %{_datadir}/man/man9/*
-%{_datadir}/doc/kernel-keys/%{rpmversion}-%{pkg_release}/kernel-signing-ca.cer
-%dir %{_datadir}/doc/kernel-keys/%{rpmversion}-%{pkg_release}
+%{_datadir}/doc/kernel-keys/%{rpmversion}-%{pkgrelease}/kernel-signing-ca.cer
+%dir %{_datadir}/doc/kernel-keys/%{rpmversion}-%{pkgrelease}
 %dir %{_datadir}/doc/kernel-keys
 %endif
 
@@ -1557,13 +1557,16 @@ fi
 %kernel_variant_files %{with_kdump} kdump
 
 %changelog
-* Mon Jun 12 2017 ClearFoundation <developer@clearfoundation.com> - 3.10.0-514.21.1.v7
+* Fri Jun 23 2017 ClearFoundation <developer@clearfoundation.com> - 3.10.0-514.21.2.v7
 - Change signing key to ClearOS
 - Add IMQ patch and update kABI accordingly
-- Updated IMQ patch
+- Add AMD VCE patch
 
-* Thu May 25 2017 CentOS Sources <bugs@centos.org> - 3.10.0-514.21.1.el7
+* Mon Jun 19 2017 CentOS Sources <bugs@centos.org> - 3.10.0-514.21.2.el7
 - Apply debranding changes
+
+* Sun May 28 2017 Frantisek Hrbata <fhrbata@hrbata.com> [3.10.0-514.21.2.el7]
+- [mm] enlarge stack guard gap (Larry Woodman) [1452732 1452733]
 
 * Sat Apr 22 2017 Frantisek Hrbata <fhrbata@hrbata.com> [3.10.0-514.21.1.el7]
 - [kernel] sched/core: Fix an SMP ordering race in try_to_wake_up() vs. schedule() (Gustavo Duarte) [1441547 1423400]
