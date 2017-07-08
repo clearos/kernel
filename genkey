@@ -3,6 +3,6 @@
 Key-Type: DSA
 Key-Length: 2048
 Preferences: SHA256
-Name-Real: CentOS 
+Name-Real: ClearOS
 Name-Comment: Kernel Module GPG key
 %commit

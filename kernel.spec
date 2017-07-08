@@ -6,7 +6,7 @@ Summary: The Linux kernel
 # and/or a kernel built from an rc or git snapshot, released_kernel should
 # be 0.
 %define released_kernel 1
-%define dist .el6
+#% define dist .el6
 
 # Versions of various parts
 
@@ -614,6 +614,11 @@ Source84: config-s390x-generic-rhel
 Source85: config-powerpc64-debug-rhel
 Source86: config-s390x-debug-rhel
 
+# ClearOS patches (80000+)
+Source80000: config-clearos-generic
+Source80001: linux-2.6.32-imq-clearos.diff
+# end of ClearOS patches
+
 # empty final patch file to facilitate testing of kernel patches
 Patch999999: linux-kernel-test.patch
 
@@ -731,13 +736,13 @@ This package provides debug information for the perf python bindings.
 %endif
 
 %package -n kernel-abi-whitelists
-Summary: The CentOS Linux kernel ABI symbol whitelists
+Summary: The Linux kernel ABI symbol whitelists
 Group: System Environment/Kernel
 AutoReqProv: no
 Obsoletes: kabi-whitelists
 Provides: kabi-whitelists
 %description -n kernel-abi-whitelists
-The kABI package contains information pertaining to the CentOS
+The kABI package contains information pertaining to the
 Linux kernel ABI, including lists of kernel symbols that are needed by
 external Linux kernel modules, and a yum plugin to aid enforcement.
 
@@ -932,6 +937,11 @@ cd linux-%{KVERREL}
 cp $RPM_SOURCE_DIR/config-* .
 cp %{SOURCE15} %{SOURCE1} %{SOURCE16} %{SOURCE17} %{SOURCE18} .
 
+# ClearOS patches (80000+)
+# MUST be called *before* Makefile.config runs below!
+ApplyOptionalPatch $(basename %{SOURCE80001})
+# end of ClearOS patches
+
 # Dynamically generate kernel .config files from config-* files
 make -f %{SOURCE20} VERSION=%{version} configs
 
@@ -1001,7 +1011,7 @@ EOF
 if [ -s %{SOURCE19} ]; then
 	gpg --homedir . --no-default-keyring --keyring kernel.pub --import %{SOURCE19}
 fi
-gpg --homedir . --export --keyring ./kernel.pub CentOS > extract.pub
+gpg --homedir . --export --keyring ./kernel.pub ClearOS > extract.pub
 gcc -o scripts/bin2c scripts/bin2c.c
 scripts/bin2c ksign_def_public_key __initdata <extract.pub >crypto/signature/key.h
 %endif
@@ -1740,6 +1750,11 @@ fi
 %endif
 
 %changelog
+* Thu Apr 13 2017 ClearFoundation <developer@clearfoundation.com> [2.6.32-696.1.1.clear]
+- Change signing key to ClearOS
+- Add IMQ patch and update kABI accordingly
+- Updated IMQ patch for 2.6.32-431.
+
 * Tue Apr 11 2017 Johnny Hughes <johnny@centos.org> [2.6.32-696.1.1.el6]
 - Roll in CentOS Branding
 
