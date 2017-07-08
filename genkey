@@ -1,0 +1,8 @@
+%pubring kernel.pub
+%secring kernel.sec
+Key-Type: DSA
+Key-Length: 2048
+Preferences: SHA256
+Name-Real: CentOS 
+Name-Comment: Kernel Module GPG key
+%commit
