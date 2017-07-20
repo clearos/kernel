@@ -17,7 +17,7 @@ Summary: The Linux kernel
 #
 # % define buildid .local
 
-%define distro_build 696.1.1
+%define distro_build 696.6.3
 %define signmodules 1
 
 # if patch fuzzy patch applying will be forbidden
@@ -154,7 +154,7 @@ Summary: The Linux kernel
 %endif
 
 # The kernel tarball/base version
-%define kversion 2.6.32-696.1.1.el6
+%define kversion 2.6.32-696.6.3.el6
 
 %define make_target bzImage
 
@@ -544,7 +544,7 @@ BuildConflicts: rhbuildsys(DiskFree) < 7Gb
 %define strip_cmd strip
 %endif
 
-Source0: linux-2.6.32-696.1.1.el6.tar.bz2
+Source0: linux-2.6.32-696.6.3.el6.tar.bz2
 
 Source1: Makefile.common
 
@@ -1750,13 +1750,51 @@ fi
 %endif
 
 %changelog
-* Thu Apr 13 2017 ClearFoundation <developer@clearfoundation.com> [2.6.32-696.1.1.clear]
+* Sun Aug 06 2017 ClearFoundation <developer@clearfoundation.com> [2.6.32-696.6.3.clear]
 - Change signing key to ClearOS
 - Add IMQ patch and update kABI accordingly
 - Updated IMQ patch for 2.6.32-431.
 
-* Tue Apr 11 2017 Johnny Hughes <johnny@centos.org> [2.6.32-696.1.1.el6]
+* Wed Jul 12 2017 Johnny Hughes <johnny@centos.org> [2.6.32-696.6.3.el6]
 - Roll in CentOS Branding
+
+* Fri Jun 30 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.6.3.el6]
+- [mm] allow JVM to implement its own stack guard pages (Larry Woodman) [1466667 1464237]
+- [mm] enlarge stack guard gap (Larry Woodman) [1466667 1464237]
+- Revert: [mm] enlarge stack guard gap (Larry Woodman) [1466667 1464237]
+
+* Wed Jun 07 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.6.2.el6]
+- [mm] enlarge stack guard gap (Larry Woodman) [1452729 1452730] {CVE-2017-1000364 CVE-2017-1000366}
+
+* Fri Jun 02 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.6.1.el6]
+- [netdrv] ixgbe: fix setup_fc for x550em (Ken Cox) [1457347 1442030]
+- [fs] nfsd: stricter decoding of write-like NFSv2/v3 ops (J. Bruce Fields) [1449274 1446755] {CVE-2017-7895}
+- [fs] nfsd4: minor NFSv2/v3 write decoding cleanup (J. Bruce Fields) [1449274 1446755] {CVE-2017-7895}
+- [scsi] libfc: quarantine timed out xids (Chris Leech) [1455550 1431440]
+- [fs] nfsv4: fix getacl ERANGE for some ACL buffer sizes (J. Bruce Fields) [1449096 869942]
+- [fs] nfsv4: fix getacl head length estimation (J. Bruce Fields) [1449096 869942]
+- [mm] hugetlb: check for pte NULL pointer in page_check_address() (Herton R. Krzesinski) [1444351 1431508]
+
+* Wed May 17 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.5.1.el6]
+- [fs] sunrpc: Ensure that we wait for connections to complete before retrying (Dave Wysochanski) [1450850 1448170]
+- [net] ipv6: check raw payload size correctly in ioctl (Jamie Bainbridge) [1450870 1441909]
+
+* Fri Apr 28 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.4.1.el6]
+- [fs] xfs: handle array index overrun in xfs_dir2_leaf_readbuf() (Carlos Maiolino) [1445179 1440361]
+
+* Thu Apr 20 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.3.1.el6]
+- [netdrv] be2net: Fix endian issue in logical link config command (Ivan Vecera) [1442979 1436527]
+- [scsi] lpfc: update for rhel6 11.0.0.6 (Maurizio Lombardi) [1439636 1429881]
+- [scsi] lpfc: The lpfc driver does not issue RFF_ID and RFT_ID in the correct sequence (Maurizio Lombardi) [1439636 1429881]
+- [x86] vmalloc_sync: avoid syncing vmalloc area on crashing cpu (Pingfan Liu) [1443499 1146727]
+- [kernel] audit: plug cred memory leak in audit_filter_rules (Richard Guy Briggs) [1443234 1434560]
+- [net] tcp: avoid infinite loop in tcp_splice_read() (Davide Caratti) [1430577 1430578] {CVE-2017-6214}
+
+* Tue Mar 28 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.2.1.el6]
+- [sched] fair: Rework throttle_count sync (Jiri Olsa) [1436241 1250762]
+- [sched] fair: Reorder cgroup creation code (Jiri Olsa) [1436241 1250762]
+- [sched] fair: Initialize throttle_count for new task-groups lazily (Jiri Olsa) [1436241 1250762]
+- [sched] fair: Do not announce throttled next buddy in dequeue_task_fair() (Jiri Olsa) [1436241 1250762]
 
 * Tue Mar 21 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.1.1.el6]
 - [block] fix use-after-free in seq file (Denys Vlasenko) [1418548 1418549] {CVE-2016-7910}
