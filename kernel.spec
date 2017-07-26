@@ -17,7 +17,7 @@ Summary: The Linux kernel
 #
 # % define buildid .local
 
-%define distro_build 696.6.3
+%define distro_build 696.10.1
 %define signmodules 1
 
 # if patch fuzzy patch applying will be forbidden
@@ -154,7 +154,7 @@ Summary: The Linux kernel
 %endif
 
 # The kernel tarball/base version
-%define kversion 2.6.32-696.6.3.el6
+%define kversion 2.6.32-696.10.1.el6
 
 %define make_target bzImage
 
@@ -544,7 +544,7 @@ BuildConflicts: rhbuildsys(DiskFree) < 7Gb
 %define strip_cmd strip
 %endif
 
-Source0: linux-2.6.32-696.6.3.el6.tar.bz2
+Source0: linux-2.6.32-696.10.1.el6.tar.bz2
 
 Source1: Makefile.common
 
@@ -1750,21 +1750,35 @@ fi
 %endif
 
 %changelog
-* Sun Aug 06 2017 ClearFoundation <developer@clearfoundation.com> [2.6.32-696.6.3.clear]
+* Thu Aug 24 2017 ClearFoundation <developer@clearfoundation.com> [2.6.32-696.10.1.clear]
 - Change signing key to ClearOS
 - Add IMQ patch and update kABI accordingly
 - Updated IMQ patch for 2.6.32-431.
 
-* Wed Jul 12 2017 Johnny Hughes <johnny@centos.org> [2.6.32-696.6.3.el6]
-- Roll in CentOS Branding
+* Tue Jul 18 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.10.1.el6]
+- [mm] backport upstream large stack guard patch to RHEL6 (Larry Woodman) [1466667 1464237]
+- Revert: [mm] allow JVM to implement its own stack guard pages (Larry Woodman) [1466667 1464237]
+- Revert: [mm] enlarge stack guard gap (Larry Woodman) [1466667 1464237]
+- [fs] sunrpc: Handle EADDRNOTAVAIL on connection failures [1472128 1459978]
+- [scsi] scsi_transport_srp: Fix a race condition (Don Dutile) [1462097 1417305]
+- [scsi] scsi_transport_srp: Introduce srp_wait_for_queuecommand() (Don Dutile) [1462097 1417305]
+- [block] make blk_cleanup_queue() wait until request_fn finished (Don Dutile) [1462097 1417305]
+- [s390] kernel: initial cr0 bits (Hendrik Brueckner) [1460194 1445326]
+- [s390] zfcp: do not trace pure benign residual HBA responses at default level (Hendrik Brueckner) [1460193 1421760]
+- [s390] zfcp: fix rport unblock race with LUN recovery (Hendrik Brueckner) [1460190 1421761]
+- [scsi] bnx2fc: fix race condition in bnx2fc_get_host_stats() (Maurizio Lombardi) [1467323 1393672]
 
-* Fri Jun 30 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.6.3.el6]
+* Wed Jul 12 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.9.1.el6]
 - [mm] allow JVM to implement its own stack guard pages (Larry Woodman) [1466667 1464237]
 - [mm] enlarge stack guard gap (Larry Woodman) [1466667 1464237]
 - Revert: [mm] enlarge stack guard gap (Larry Woodman) [1466667 1464237]
 
-* Wed Jun 07 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.6.2.el6]
-- [mm] enlarge stack guard gap (Larry Woodman) [1452729 1452730] {CVE-2017-1000364 CVE-2017-1000366}
+* Wed Jun 21 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.8.1.el6]
+- [fs] sunrpc: Enable the keepalive option for TCP sockets (Dave Wysochanski) [1462094 1458421]
+- [mm] enlarge stack guard gap (Larry Woodman) [1452729 1452730] {CVE-2017-1000364}
+
+* Mon Jun 12 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.7.1.el6]
+- [kernel] audit: acquire creds selectively to reduce atomic op overhead (Paul Moore) [1460164 1454847]
 
 * Fri Jun 02 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.6.1.el6]
 - [netdrv] ixgbe: fix setup_fc for x550em (Ken Cox) [1457347 1442030]
