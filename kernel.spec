@@ -17,7 +17,7 @@ Summary: The Linux kernel
 #
 # % define buildid .local
 
-%define distro_build 696.10.2
+%define distro_build 696.10.3
 %define signmodules 1
 
 # if patch fuzzy patch applying will be forbidden
@@ -154,7 +154,7 @@ Summary: The Linux kernel
 %endif
 
 # The kernel tarball/base version
-%define kversion 2.6.32-696.10.2.el6
+%define kversion 2.6.32-696.10.3.el6
 
 %define make_target bzImage
 
@@ -544,7 +544,7 @@ BuildConflicts: rhbuildsys(DiskFree) < 7Gb
 %define strip_cmd strip
 %endif
 
-Source0: linux-2.6.32-696.10.2.el6.tar.bz2
+Source0: linux-2.6.32-696.10.3.el6.tar.bz2
 
 Source1: Makefile.common
 
@@ -1750,13 +1750,17 @@ fi
 %endif
 
 %changelog
-* Tue Sep 19 2017 ClearFoundation <developer@clearfoundation.com> [2.6.32-696.10.2.clear]
+* Thu Sep 28 2017 ClearFoundation <developer@clearfoundation.com> [2.6.32-696.10.3.clear]
 - Change signing key to ClearOS
 - Add IMQ patch and update kABI accordingly
 - Updated IMQ patch for 2.6.32-431.
 
-* Tue Sep 12 2017 Johnny Hughes <johnny@centos.org>[2.6.32-696.10.2.el6]
+* Tue Sep 26 2017 Johnny Hughes <johnny@centos.org> [2.6.32-696.10.3.el6]
 - Roll in CentOS Branding
+
+* Thu Sep 21 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.10.3.el6]
+- [fs] binfmt_elf.c:load_elf_binary(): return -EINVAL on zero-length mappings (Petr Matousek) [1492959 1492961] {CVE-2017-1000253}
+- [fs] binfmt_elf.c: fix bug in loading of PIE binaries (Petr Matousek) [1492959 1492961] {CVE-2017-1000253}
 
 * Sun Sep 10 2017 Frantisek Hrbata <fhrbata@redhat.com> [2.6.32-696.10.2.el6]
 - [net] l2cap: prevent stack overflow on incoming bluetooth packet (Neil Horman) [1490060 1490062] {CVE-2017-1000251}
