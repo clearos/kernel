@@ -17,7 +17,7 @@ Summary: The Linux kernel
 #
 # % define buildid .local
 
-%define distro_build 696.10.1
+%define distro_build 696.10.2
 %define signmodules 1
 
 # if patch fuzzy patch applying will be forbidden
@@ -154,7 +154,7 @@ Summary: The Linux kernel
 %endif
 
 # The kernel tarball/base version
-%define kversion 2.6.32-696.10.1.el6
+%define kversion 2.6.32-696.10.2.el6
 
 %define make_target bzImage
 
@@ -544,7 +544,7 @@ BuildConflicts: rhbuildsys(DiskFree) < 7Gb
 %define strip_cmd strip
 %endif
 
-Source0: linux-2.6.32-696.10.1.el6.tar.bz2
+Source0: linux-2.6.32-696.10.2.el6.tar.bz2
 
 Source1: Makefile.common
 
@@ -1740,6 +1740,12 @@ fi
 %endif
 
 %changelog
+* Tue Sep 12 2017 Johnny Hughes <johnny@centos.org>[2.6.32-696.10.2.el6]
+- Roll in CentOS Branding
+
+* Sun Sep 10 2017 Frantisek Hrbata <fhrbata@redhat.com> [2.6.32-696.10.2.el6]
+- [net] l2cap: prevent stack overflow on incoming bluetooth packet (Neil Horman) [1490060 1490062] {CVE-2017-1000251}
+
 * Tue Jul 18 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.10.1.el6]
 - [mm] backport upstream large stack guard patch to RHEL6 (Larry Woodman) [1466667 1464237]
 - Revert: [mm] allow JVM to implement its own stack guard pages (Larry Woodman) [1466667 1464237]
