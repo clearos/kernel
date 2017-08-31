@@ -10,3 +10,8 @@ Forked version of kernel with ClearOS changes applied
 * git checkout clear7
 * git merge --no-commit c7
 * git commit
+
+To fetch sources:
+
+* ln -sf ../common/Makefile
+* make srpm
