@@ -1,6 +1,6 @@
 diff -ruN linux-3.10.0-693.1.1.el7/drivers/net/imq.c linux-3.10.0-693.1.1.el7-imq/drivers/net/imq.c
 --- linux-3.10.0-693.1.1.el7/drivers/net/imq.c	1969-12-31 19:00:00.000000000 -0500
-+++ linux-3.10.0-693.1.1.el7-imq/drivers/net/imq.c	2017-08-25 01:32:16.316078136 -0400
++++ linux-3.10.0-693.1.1.el7-imq/drivers/net/imq.c	2017-08-30 16:20:32.731440519 -0400
 @@ -0,0 +1,917 @@
 +/*
 + *             Pseudo-driver for the intermediate queue device.
@@ -325,7 +325,7 @@ diff -ruN linux-3.10.0-693.1.1.el7/drivers/net/imq.c linux-3.10.0-693.1.1.el7-im
 +	struct nf_queue_entry *entry = skb->nf_queue_entry;
 +
 +	skb->nf_queue_entry = NULL;
-+	dev->trans_start = jiffies;
++	netif_trans_update(dev);
 +
 +	dev->stats.tx_bytes += skb->len;
 +	dev->stats.tx_packets++;
