@@ -17,7 +17,7 @@ Summary: The Linux kernel
 #
 # % define buildid .local
 
-%define distro_build 696.13.2
+%define distro_build 696.16.1
 %define signmodules 1
 
 # if patch fuzzy patch applying will be forbidden
@@ -154,7 +154,7 @@ Summary: The Linux kernel
 %endif
 
 # The kernel tarball/base version
-%define kversion 2.6.32-696.13.2.el6
+%define kversion 2.6.32-696.16.1.el6
 
 %define make_target bzImage
 
@@ -544,7 +544,7 @@ BuildConflicts: rhbuildsys(DiskFree) < 7Gb
 %define strip_cmd strip
 %endif
 
-Source0: linux-2.6.32-696.13.2.el6.tar.bz2
+Source0: linux-2.6.32-696.16.1.el6.tar.bz2
 
 Source1: Makefile.common
 
@@ -1740,13 +1740,35 @@ fi
 %endif
 
 %changelog
-* Thu Oct 05 2017 Johnny Hughes <johnny@centos.org>[2.6.32-696.13.2.el6]
+* Wed Nov 15 2017 Johnny Hughes <johnny@centos.org> [2.6.32-696.16.1.el6]
 - Roll in CentOS Branding
 
-* Fri Sep 22 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.13.2.el6]
-- [net] l2cap: prevent stack overflow on incoming bluetooth packet (Neil Horman) [1490060 1490062] {CVE-2017-1000251}
+* Sun Oct 08 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.16.1.el6]
+- [net] packet: fix tp_reserve race in packet_set_ring (Stefano Brivio) [1481941 1481943] {CVE-2017-1000111}
+- [net] packet: fix overflow in check for tp_frame_nr (Stefano Brivio) [1481941 1481943] {CVE-2017-1000111}
+- [net] packet: fix overflow in check for tp_reserve (Stefano Brivio) [1481941 1481943] {CVE-2017-1000111}
+- [netdrv] sfc: tx ring can only have 2048 entries for all EF10 NICs (Jarod Wilson) [1498019 1441773]
+- [fs] sunrpc: always treat the invalid cache as unexpired (Thiago Becker) [1497976 1477288]
+- [fs] sunrpc: xpt_auth_cache should be ignored when expired (Thiago Becker) [1497976 1477288]
+- [net] tcp: initialize rcv_mss to TCP_MIN_MSS instead of 0 (Davide Caratti) [1488344 1488340] {CVE-2017-14106}
+- [net] tcp: fix 0 divide in __tcp_select_window() (Davide Caratti) [1488344 1488340] {CVE-2017-14106}
+- [scsi] lpfc: fix "integer constant too large" error on 32bit archs (Maurizio Lombardi) [1487220 1441169]
+- [scsi] lpfc: version 11.0.1.6 is 11.0.0.6 with no_hba_reset patches (Maurizio Lombardi) [1487220 1441169]
+- [scsi] lpfc: Vport creation is failing with "Link Down" error (Maurizio Lombardi) [1487220 1441169]
+- [scsi] lpfc: Fix panic on BFS configuration (Maurizio Lombardi) [1487220 1441169]
+- [scsi] lpfc: Fix eh_deadline setting for sli3 adapters (Maurizio Lombardi) [1487220 1441169]
+- [scsi] lpfc: Correct panics with eh_timeout and eh_deadline (Maurizio Lombardi) [1487220 1441169]
+- [net] udp: consistently apply ufo or fragmentation (Davide Caratti) [1481532 1481529] {CVE-2017-1000112}
+- [net] ipv6: Should use consistent conditional judgement for ip6 fragment between __ip6_append_data and ip6_finish_output (Davide Caratti) [1481532 1481529] {CVE-2017-1000112}
+- [net] ipv4: Should use consistent conditional judgement for ip fragment in __ip_append_data and ip_finish_output (Davide Caratti) [1481532 1481529] {CVE-2017-1000112}
+
+* Tue Sep 26 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.15.1.el6]
 - [fs] binfmt_elf.c:load_elf_binary(): return -EINVAL on zero-length mappings (Petr Matousek) [1492959 1492961] {CVE-2017-1000253}
 - [fs] binfmt_elf.c: fix bug in loading of PIE binaries (Petr Matousek) [1492959 1492961] {CVE-2017-1000253}
+
+* Mon Sep 18 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.14.1.el6]
+- [fs] nfs: don't disconnect open-owner on NFS4ERR_BAD_SEQID (Dave Wysochanski) [1491123 1459636]
+- [net] l2cap: prevent stack overflow on incoming bluetooth packet (Neil Horman) [1490060 1490062] {CVE-2017-1000251}
 
 * Wed Aug 23 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.13.1.el6]
 - [netdv] brcmfmac: fix possible buffer overflow in brcmf_cfg80211_mgmt_tx() (Stanislaw Gruszka) [1474783 1474782] {CVE-2017-7541}
