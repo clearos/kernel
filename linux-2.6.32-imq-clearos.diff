@@ -1,6 +1,6 @@
-diff -ruN linux-2.6.32-642.v6.orig/drivers/net/imq.c linux-2.6.32-642.v6.imq/drivers/net/imq.c
---- linux-2.6.32-642.v6.orig/drivers/net/imq.c	1969-12-31 19:00:00.000000000 -0500
-+++ linux-2.6.32-642.v6.imq/drivers/net/imq.c	2016-06-08 14:22:02.958527442 -0400
+diff -ruN linux-2.6.32-696.18.7.v6/drivers/net/imq.c linux-2.6.32-696.18.7.v6-imq/drivers/net/imq.c
+--- linux-2.6.32-696.18.7.v6/drivers/net/imq.c	1969-12-31 19:00:00.000000000 -0500
++++ linux-2.6.32-696.18.7.v6-imq/drivers/net/imq.c	2018-01-05 13:01:04.084798048 -0500
 @@ -0,0 +1,632 @@
 +/*
 + *             Pseudo-driver for the intermediate queue device.
@@ -634,9 +634,9 @@ diff -ruN linux-2.6.32-642.v6.orig/drivers/net/imq.c linux-2.6.32-642.v6.imq/dri
 +MODULE_LICENSE("GPL");
 +MODULE_ALIAS_RTNL_LINK("imq");
 +
-diff -ruN linux-2.6.32-642.v6.orig/drivers/net/Kconfig linux-2.6.32-642.v6.imq/drivers/net/Kconfig
---- linux-2.6.32-642.v6.orig/drivers/net/Kconfig	2016-04-13 00:11:04.000000000 -0400
-+++ linux-2.6.32-642.v6.imq/drivers/net/Kconfig	2016-06-08 14:22:02.959527477 -0400
+diff -ruN linux-2.6.32-696.18.7.v6/drivers/net/Kconfig linux-2.6.32-696.18.7.v6-imq/drivers/net/Kconfig
+--- linux-2.6.32-696.18.7.v6/drivers/net/Kconfig	2017-12-28 17:55:09.000000000 -0500
++++ linux-2.6.32-696.18.7.v6-imq/drivers/net/Kconfig	2018-01-05 13:01:04.139799201 -0500
 @@ -121,6 +121,129 @@
  	  To compile this driver as a module, choose M here: the module
  	  will be called eql.  If unsure, say N.
@@ -767,9 +767,9 @@ diff -ruN linux-2.6.32-642.v6.orig/drivers/net/Kconfig linux-2.6.32-642.v6.imq/d
  config TUN
  	tristate "Universal TUN/TAP device driver support"
  	select CRC32
-diff -ruN linux-2.6.32-642.v6.orig/drivers/net/Makefile linux-2.6.32-642.v6.imq/drivers/net/Makefile
---- linux-2.6.32-642.v6.orig/drivers/net/Makefile	2016-04-13 00:10:59.000000000 -0400
-+++ linux-2.6.32-642.v6.imq/drivers/net/Makefile	2016-06-08 14:22:02.959527477 -0400
+diff -ruN linux-2.6.32-696.18.7.v6/drivers/net/Makefile linux-2.6.32-696.18.7.v6-imq/drivers/net/Makefile
+--- linux-2.6.32-696.18.7.v6/drivers/net/Makefile	2017-12-28 17:54:29.000000000 -0500
++++ linux-2.6.32-696.18.7.v6-imq/drivers/net/Makefile	2018-01-05 13:01:04.173799914 -0500
 @@ -173,6 +173,7 @@
  obj-$(CONFIG_XEN_NETDEV_FRONTEND) += xen-netfront.o
  
@@ -778,9 +778,9 @@ diff -ruN linux-2.6.32-642.v6.orig/drivers/net/Makefile linux-2.6.32-642.v6.imq/
  obj-$(CONFIG_IFB) += ifb.o
  obj-$(CONFIG_MACVLAN) += macvlan.o
  obj-$(CONFIG_MACVTAP) += macvtap.o
-diff -ruN linux-2.6.32-642.v6.orig/include/linux/imq.h linux-2.6.32-642.v6.imq/include/linux/imq.h
---- linux-2.6.32-642.v6.orig/include/linux/imq.h	1969-12-31 19:00:00.000000000 -0500
-+++ linux-2.6.32-642.v6.imq/include/linux/imq.h	2016-06-08 14:22:02.960527510 -0400
+diff -ruN linux-2.6.32-696.18.7.v6/include/linux/imq.h linux-2.6.32-696.18.7.v6-imq/include/linux/imq.h
+--- linux-2.6.32-696.18.7.v6/include/linux/imq.h	1969-12-31 19:00:00.000000000 -0500
++++ linux-2.6.32-696.18.7.v6-imq/include/linux/imq.h	2018-01-05 13:01:04.197800417 -0500
 @@ -0,0 +1,13 @@
 +#ifndef _IMQ_H
 +#define _IMQ_H
@@ -795,9 +795,9 @@ diff -ruN linux-2.6.32-642.v6.orig/include/linux/imq.h linux-2.6.32-642.v6.imq/i
 +
 +#endif /* _IMQ_H */
 +
-diff -ruN linux-2.6.32-642.v6.orig/include/linux/netfilter/xt_IMQ.h linux-2.6.32-642.v6.imq/include/linux/netfilter/xt_IMQ.h
---- linux-2.6.32-642.v6.orig/include/linux/netfilter/xt_IMQ.h	1969-12-31 19:00:00.000000000 -0500
-+++ linux-2.6.32-642.v6.imq/include/linux/netfilter/xt_IMQ.h	2016-06-08 14:22:02.960527510 -0400
+diff -ruN linux-2.6.32-696.18.7.v6/include/linux/netfilter/xt_IMQ.h linux-2.6.32-696.18.7.v6-imq/include/linux/netfilter/xt_IMQ.h
+--- linux-2.6.32-696.18.7.v6/include/linux/netfilter/xt_IMQ.h	1969-12-31 19:00:00.000000000 -0500
++++ linux-2.6.32-696.18.7.v6-imq/include/linux/netfilter/xt_IMQ.h	2018-01-05 13:01:04.204800564 -0500
 @@ -0,0 +1,9 @@
 +#ifndef _XT_IMQ_H
 +#define _XT_IMQ_H
@@ -808,9 +808,9 @@ diff -ruN linux-2.6.32-642.v6.orig/include/linux/netfilter/xt_IMQ.h linux-2.6.32
 +
 +#endif /* _XT_IMQ_H */
 +
-diff -ruN linux-2.6.32-642.v6.orig/include/linux/netfilter_ipv4/ipt_IMQ.h linux-2.6.32-642.v6.imq/include/linux/netfilter_ipv4/ipt_IMQ.h
---- linux-2.6.32-642.v6.orig/include/linux/netfilter_ipv4/ipt_IMQ.h	1969-12-31 19:00:00.000000000 -0500
-+++ linux-2.6.32-642.v6.imq/include/linux/netfilter_ipv4/ipt_IMQ.h	2016-06-08 14:22:02.960527510 -0400
+diff -ruN linux-2.6.32-696.18.7.v6/include/linux/netfilter_ipv4/ipt_IMQ.h linux-2.6.32-696.18.7.v6-imq/include/linux/netfilter_ipv4/ipt_IMQ.h
+--- linux-2.6.32-696.18.7.v6/include/linux/netfilter_ipv4/ipt_IMQ.h	1969-12-31 19:00:00.000000000 -0500
++++ linux-2.6.32-696.18.7.v6-imq/include/linux/netfilter_ipv4/ipt_IMQ.h	2018-01-05 13:01:04.214800774 -0500
 @@ -0,0 +1,10 @@
 +#ifndef _IPT_IMQ_H
 +#define _IPT_IMQ_H
@@ -822,9 +822,9 @@ diff -ruN linux-2.6.32-642.v6.orig/include/linux/netfilter_ipv4/ipt_IMQ.h linux-
 +
 +#endif /* _IPT_IMQ_H */
 +
-diff -ruN linux-2.6.32-642.v6.orig/include/linux/netfilter_ipv6/ip6t_IMQ.h linux-2.6.32-642.v6.imq/include/linux/netfilter_ipv6/ip6t_IMQ.h
---- linux-2.6.32-642.v6.orig/include/linux/netfilter_ipv6/ip6t_IMQ.h	1969-12-31 19:00:00.000000000 -0500
-+++ linux-2.6.32-642.v6.imq/include/linux/netfilter_ipv6/ip6t_IMQ.h	2016-06-08 14:22:02.960527510 -0400
+diff -ruN linux-2.6.32-696.18.7.v6/include/linux/netfilter_ipv6/ip6t_IMQ.h linux-2.6.32-696.18.7.v6-imq/include/linux/netfilter_ipv6/ip6t_IMQ.h
+--- linux-2.6.32-696.18.7.v6/include/linux/netfilter_ipv6/ip6t_IMQ.h	1969-12-31 19:00:00.000000000 -0500
++++ linux-2.6.32-696.18.7.v6-imq/include/linux/netfilter_ipv6/ip6t_IMQ.h	2018-01-05 13:01:04.218800858 -0500
 @@ -0,0 +1,10 @@
 +#ifndef _IP6T_IMQ_H
 +#define _IP6T_IMQ_H
@@ -836,9 +836,9 @@ diff -ruN linux-2.6.32-642.v6.orig/include/linux/netfilter_ipv6/ip6t_IMQ.h linux
 +
 +#endif /* _IP6T_IMQ_H */
 +
-diff -ruN linux-2.6.32-642.v6.orig/include/linux/skbuff.h linux-2.6.32-642.v6.imq/include/linux/skbuff.h
---- linux-2.6.32-642.v6.orig/include/linux/skbuff.h	2016-04-13 00:10:59.000000000 -0400
-+++ linux-2.6.32-642.v6.imq/include/linux/skbuff.h	2016-06-08 14:22:15.821527974 -0400
+diff -ruN linux-2.6.32-696.18.7.v6/include/linux/skbuff.h linux-2.6.32-696.18.7.v6-imq/include/linux/skbuff.h
+--- linux-2.6.32-696.18.7.v6/include/linux/skbuff.h	2017-12-28 17:55:21.000000000 -0500
++++ linux-2.6.32-696.18.7.v6-imq/include/linux/skbuff.h	2018-01-05 13:01:04.251801550 -0500
 @@ -31,6 +31,9 @@
  #include <linux/hrtimer.h>
  #include <linux/dma-mapping.h>
@@ -891,9 +891,9 @@ diff -ruN linux-2.6.32-642.v6.orig/include/linux/skbuff.h linux-2.6.32-642.v6.im
 +#endif
 +
  extern void kfree_skb(struct sk_buff *skb);
+ extern void kfree_skb_list(struct sk_buff *segs);
  extern void consume_skb(struct sk_buff *skb);
- extern void	       __kfree_skb(struct sk_buff *skb);
-@@ -2408,6 +2427,10 @@
+@@ -2409,6 +2428,10 @@
  	dst->nfct_reasm = src->nfct_reasm;
  	nf_conntrack_get_reasm(src->nfct_reasm);
  #endif
@@ -904,9 +904,9 @@ diff -ruN linux-2.6.32-642.v6.orig/include/linux/skbuff.h linux-2.6.32-642.v6.im
  #ifdef CONFIG_BRIDGE_NETFILTER
  	dst->nf_bridge  = src->nf_bridge;
  	nf_bridge_get(src->nf_bridge);
-diff -ruN linux-2.6.32-642.v6.orig/include/net/netfilter/nf_queue.h linux-2.6.32-642.v6.imq/include/net/netfilter/nf_queue.h
---- linux-2.6.32-642.v6.orig/include/net/netfilter/nf_queue.h	2009-12-02 22:51:21.000000000 -0500
-+++ linux-2.6.32-642.v6.imq/include/net/netfilter/nf_queue.h	2016-06-08 14:22:02.961527541 -0400
+diff -ruN linux-2.6.32-696.18.7.v6/include/net/netfilter/nf_queue.h linux-2.6.32-696.18.7.v6-imq/include/net/netfilter/nf_queue.h
+--- linux-2.6.32-696.18.7.v6/include/net/netfilter/nf_queue.h	2009-12-02 22:51:21.000000000 -0500
++++ linux-2.6.32-696.18.7.v6-imq/include/net/netfilter/nf_queue.h	2018-01-05 13:01:04.276802074 -0500
 @@ -13,6 +13,12 @@
  	struct net_device	*indev;
  	struct net_device	*outdev;
@@ -932,9 +932,9 @@ diff -ruN linux-2.6.32-642.v6.orig/include/net/netfilter/nf_queue.h linux-2.6.32
 +#endif
  
  #endif /* _NF_QUEUE_H */
-diff -ruN linux-2.6.32-642.v6.orig/net/core/dev.c linux-2.6.32-642.v6.imq/net/core/dev.c
---- linux-2.6.32-642.v6.orig/net/core/dev.c	2016-04-13 00:10:59.000000000 -0400
-+++ linux-2.6.32-642.v6.imq/net/core/dev.c	2016-06-08 14:22:02.962527571 -0400
+diff -ruN linux-2.6.32-696.18.7.v6/net/core/dev.c linux-2.6.32-696.18.7.v6-imq/net/core/dev.c
+--- linux-2.6.32-696.18.7.v6/net/core/dev.c	2017-12-28 17:55:19.000000000 -0500
++++ linux-2.6.32-696.18.7.v6-imq/net/core/dev.c	2018-01-05 13:01:04.287802305 -0500
 @@ -96,6 +96,9 @@
  #include <net/net_namespace.h>
  #include <net/sock.h>
@@ -945,7 +945,7 @@ diff -ruN linux-2.6.32-642.v6.orig/net/core/dev.c linux-2.6.32-642.v6.imq/net/co
  #include <linux/proc_fs.h>
  #include <linux/seq_file.h>
  #include <linux/stat.h>
-@@ -2309,7 +2312,11 @@
+@@ -2311,7 +2314,11 @@
  		if (dev->priv_flags & IFF_XMIT_DST_RELEASE)
  			skb_dst_drop(skb);
  
@@ -958,7 +958,7 @@ diff -ruN linux-2.6.32-642.v6.orig/net/core/dev.c linux-2.6.32-642.v6.imq/net/co
  			dev_queue_xmit_nit(skb, dev);
  
  		skb_len = skb->len;
-@@ -2505,6 +2512,7 @@
+@@ -2507,6 +2514,7 @@
  	skb_set_queue_mapping(skb, queue_index);
  	return netdev_get_tx_queue(dev, queue_index);
  }
@@ -966,9 +966,9 @@ diff -ruN linux-2.6.32-642.v6.orig/net/core/dev.c linux-2.6.32-642.v6.imq/net/co
  
  static inline int __dev_xmit_skb(struct sk_buff *skb, struct Qdisc *q,
  				 struct net_device *dev,
-diff -ruN linux-2.6.32-642.v6.orig/net/core/skbuff.c linux-2.6.32-642.v6.imq/net/core/skbuff.c
---- linux-2.6.32-642.v6.orig/net/core/skbuff.c	2016-04-13 00:10:59.000000000 -0400
-+++ linux-2.6.32-642.v6.imq/net/core/skbuff.c	2016-06-08 14:22:02.963527599 -0400
+diff -ruN linux-2.6.32-696.18.7.v6/net/core/skbuff.c linux-2.6.32-696.18.7.v6-imq/net/core/skbuff.c
+--- linux-2.6.32-696.18.7.v6/net/core/skbuff.c	2017-12-28 17:55:21.000000000 -0500
++++ linux-2.6.32-696.18.7.v6-imq/net/core/skbuff.c	2018-01-05 13:01:04.316802913 -0500
 @@ -77,6 +77,9 @@
  
  static struct kmem_cache *skbuff_head_cache __read_mostly;
@@ -1063,7 +1063,7 @@ diff -ruN linux-2.6.32-642.v6.orig/net/core/skbuff.c linux-2.6.32-642.v6.imq/net
  
  /* Pipe buffer operations for a socket. */
  static struct pipe_buf_operations sock_pipe_buf_ops = {
-@@ -467,6 +547,26 @@
+@@ -460,6 +540,26 @@
  		WARN_ON(in_irq());
  		skb->destructor(skb);
  	}
@@ -1090,7 +1090,7 @@ diff -ruN linux-2.6.32-642.v6.orig/net/core/skbuff.c linux-2.6.32-642.v6.imq/net
  #if defined(CONFIG_NF_CONNTRACK) || defined(CONFIG_NF_CONNTRACK_MODULE)
  	nf_conntrack_put(skb->nfct);
  	nf_conntrack_put_reasm(skb->nfct_reasm);
-@@ -610,6 +710,9 @@
+@@ -614,6 +714,9 @@
  	new->sp			= secpath_get(old->sp);
  #endif
  	memcpy(new->cb, old->cb, sizeof(old->cb));
@@ -1100,7 +1100,7 @@ diff -ruN linux-2.6.32-642.v6.orig/net/core/skbuff.c linux-2.6.32-642.v6.imq/net
  	new->csum		= old->csum;
  	new->local_df		= old->local_df;
  	new->pkt_type		= old->pkt_type;
-@@ -2972,6 +3075,13 @@
+@@ -2976,6 +3079,13 @@
  						0,
  						SLAB_HWCACHE_ALIGN|SLAB_PANIC,
  						NULL);
@@ -1114,9 +1114,9 @@ diff -ruN linux-2.6.32-642.v6.orig/net/core/skbuff.c linux-2.6.32-642.v6.imq/net
  }
  
  /**
-diff -ruN linux-2.6.32-642.v6.orig/net/netfilter/Kconfig linux-2.6.32-642.v6.imq/net/netfilter/Kconfig
---- linux-2.6.32-642.v6.orig/net/netfilter/Kconfig	2016-04-13 00:10:13.000000000 -0400
-+++ linux-2.6.32-642.v6.imq/net/netfilter/Kconfig	2016-06-08 14:22:02.963527599 -0400
+diff -ruN linux-2.6.32-696.18.7.v6/net/netfilter/Kconfig linux-2.6.32-696.18.7.v6-imq/net/netfilter/Kconfig
+--- linux-2.6.32-696.18.7.v6/net/netfilter/Kconfig	2017-12-28 17:49:47.000000000 -0500
++++ linux-2.6.32-696.18.7.v6-imq/net/netfilter/Kconfig	2018-01-05 13:01:04.358803794 -0500
 @@ -419,6 +419,18 @@
  	  For more information on the LEDs available on your system, see
  	  Documentation/leds-class.txt
@@ -1136,9 +1136,9 @@ diff -ruN linux-2.6.32-642.v6.orig/net/netfilter/Kconfig linux-2.6.32-642.v6.imq
  config NETFILTER_XT_TARGET_MARK
  	tristate '"MARK" target support'
  	default m if NETFILTER_ADVANCED=n
-diff -ruN linux-2.6.32-642.v6.orig/net/netfilter/Makefile linux-2.6.32-642.v6.imq/net/netfilter/Makefile
---- linux-2.6.32-642.v6.orig/net/netfilter/Makefile	2016-04-13 00:10:13.000000000 -0400
-+++ linux-2.6.32-642.v6.imq/net/netfilter/Makefile	2016-06-08 14:22:02.963527599 -0400
+diff -ruN linux-2.6.32-696.18.7.v6/net/netfilter/Makefile linux-2.6.32-696.18.7.v6-imq/net/netfilter/Makefile
+--- linux-2.6.32-696.18.7.v6/net/netfilter/Makefile	2017-12-28 17:49:47.000000000 -0500
++++ linux-2.6.32-696.18.7.v6-imq/net/netfilter/Makefile	2018-01-05 13:01:04.360803836 -0500
 @@ -53,6 +53,7 @@
  obj-$(CONFIG_NETFILTER_XT_TARGET_CONNSECMARK) += xt_CONNSECMARK.o
  obj-$(CONFIG_NETFILTER_XT_TARGET_DSCP) += xt_DSCP.o
@@ -1147,9 +1147,9 @@ diff -ruN linux-2.6.32-642.v6.orig/net/netfilter/Makefile linux-2.6.32-642.v6.im
  obj-$(CONFIG_NETFILTER_XT_TARGET_LED) += xt_LED.o
  obj-$(CONFIG_NETFILTER_XT_TARGET_MARK) += xt_MARK.o
  obj-$(CONFIG_NETFILTER_XT_TARGET_NFLOG) += xt_NFLOG.o
-diff -ruN linux-2.6.32-642.v6.orig/net/netfilter/nf_queue.c linux-2.6.32-642.v6.imq/net/netfilter/nf_queue.c
---- linux-2.6.32-642.v6.orig/net/netfilter/nf_queue.c	2016-04-13 00:10:32.000000000 -0400
-+++ linux-2.6.32-642.v6.imq/net/netfilter/nf_queue.c	2016-06-08 14:22:02.963527599 -0400
+diff -ruN linux-2.6.32-696.18.7.v6/net/netfilter/nf_queue.c linux-2.6.32-696.18.7.v6-imq/net/netfilter/nf_queue.c
+--- linux-2.6.32-696.18.7.v6/net/netfilter/nf_queue.c	2017-12-28 17:51:42.000000000 -0500
++++ linux-2.6.32-696.18.7.v6-imq/net/netfilter/nf_queue.c	2018-01-05 13:01:04.361803857 -0500
 @@ -20,6 +20,26 @@
  
  static DEFINE_MUTEX(queue_handler_mutex);
@@ -1252,9 +1252,9 @@ diff -ruN linux-2.6.32-642.v6.orig/net/netfilter/nf_queue.c linux-2.6.32-642.v6.
  	rcu_read_unlock();
  
  	if (status < 0) {
-diff -ruN linux-2.6.32-642.v6.orig/net/netfilter/xt_IMQ.c linux-2.6.32-642.v6.imq/net/netfilter/xt_IMQ.c
---- linux-2.6.32-642.v6.orig/net/netfilter/xt_IMQ.c	1969-12-31 19:00:00.000000000 -0500
-+++ linux-2.6.32-642.v6.imq/net/netfilter/xt_IMQ.c	2016-06-08 14:22:02.963527599 -0400
+diff -ruN linux-2.6.32-696.18.7.v6/net/netfilter/xt_IMQ.c linux-2.6.32-696.18.7.v6-imq/net/netfilter/xt_IMQ.c
+--- linux-2.6.32-696.18.7.v6/net/netfilter/xt_IMQ.c	1969-12-31 19:00:00.000000000 -0500
++++ linux-2.6.32-696.18.7.v6-imq/net/netfilter/xt_IMQ.c	2018-01-05 13:01:04.362803878 -0500
 @@ -0,0 +1,73 @@
 +/*
 + * This target marks packets to be enqueued to an imq device
