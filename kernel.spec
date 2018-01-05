@@ -17,7 +17,7 @@ Summary: The Linux kernel
 #
 # % define buildid .local
 
-%define distro_build 696.16.1
+%define distro_build 696.18.7
 %define signmodules 1
 
 # if patch fuzzy patch applying will be forbidden
@@ -154,7 +154,7 @@ Summary: The Linux kernel
 %endif
 
 # The kernel tarball/base version
-%define kversion 2.6.32-696.16.1.el6
+%define kversion 2.6.32-696.18.7.el6
 
 %define make_target bzImage
 
@@ -544,7 +544,7 @@ BuildConflicts: rhbuildsys(DiskFree) < 7Gb
 %define strip_cmd strip
 %endif
 
-Source0: linux-2.6.32-696.16.1.el6.tar.bz2
+Source0: linux-2.6.32-696.18.7.el6.tar.bz2
 
 Source1: Makefile.common
 
@@ -737,7 +737,7 @@ AutoReqProv: no
 Obsoletes: kabi-whitelists
 Provides: kabi-whitelists
 %description -n kernel-abi-whitelists
-The kABI package contains information pertaining to the CentOS
+The kABI package contains information pertaining to the CentOS 
 Linux kernel ABI, including lists of kernel symbols that are needed by
 external Linux kernel modules, and a yum plugin to aid enforcement.
 
@@ -1740,8 +1740,192 @@ fi
 %endif
 
 %changelog
-* Wed Nov 15 2017 Johnny Hughes <johnny@centos.org> [2.6.32-696.16.1.el6]
+* Thu Jan  4 2018 Johnny Hughes <johnny@centos.org> [2.6.32-696.18.7.el6]
 - Roll in CentOS Branding
+
+* Thu Dec 28 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.18.7.el6]
+- [x86] spec_ctrl: svm: spec_ctrl at vmexit needs per-cpu areas functional (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: Eliminate redundnat FEATURE Not Present messages (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: enable IBRS and stuff_RSB before calling NMI C code (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: skip CAP_SYS_PTRACE check to skip audit (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: disable ibrs while in intel_idle() (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: skip IBRS/CR3 restore when paranoid exception returns to userland (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- Revert "x86/entry: Use retpoline for syscall's indirect calls" (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] mm/dump_pagetables: Allow dumping current pagetables (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/dump_pagetables: Add a pgd argument to walk_pgd_level() (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/dump_pagetables: Add page table directory (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] entry: Remove unneeded nmi_userspace code (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] entry: Fix nmi exit code with CONFIG_TRACE_IRQFLAGS (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: init_tss is supposed to go in the PAGE_ALIGNED per-cpu section (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: Clear kdump pgd page to prevent incorrect behavior (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: consider the init_mm.pgd a kaiser pgd (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: convert userland visible "kpti" name to "pti" (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+
+* Wed Dec 20 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.18.6.el6]
+- [x86] spec_ctrl: set IBRS during resume from RAM if ibrs_enabled is 2 (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] mm/kaiser: __load_cr3 in resume from RAM after kernel %gs has been restored (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] mm/kaiser: Revert the __GFP_COMP flag change (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] entry: Fix paranoid_exit() trampoline clobber (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+
+* Tue Dec 19 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.18.5.el6]
+- [x86] spec_ctrl: allow use_ibp_disable only if both SPEC_CTRL and IBPB_SUPPORT are missing (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: Documentation spec_ctrl.txt (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: remove irqs_disabled() check from intel_idle() (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: use enum when setting ibrs/ibpb_enabled (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: undo speculation barrier for ibrs_enabled and noibrs_cmdline (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: introduce ibpb_enabled = 2 for IBPB instead of IBRS (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: introduce SPEC_CTRL_PCP_ONLY_IBPB (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: cleanup s/flush/sync/ naming when sending IPIs (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: set IBRS during CPU init if in ibrs_enabled == 2 (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: use IBRS_ENABLED instead of 1 (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: allow the IBP disable feature to be toggled at runtime (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: always initialize save_reg in ENABLE_IBRS_SAVE_AND_CLOBBER (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: ibrs_enabled() is expected to return > 1 (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: CLEAR_EXTRA_REGS and extra regs save/restore (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] syscall: Clear unused extra registers on syscall (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] entry: Add back STUFF_RSB to interrupt and error paths (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] mm/kaiser: make is_kaiser_pgd reliable (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: disable global pages by default with KAISER (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] revert: mm/kaiser: Disable global pages by default with KAISER (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] kaiser/mm: fix pgd freeing in error path (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] entry: Fix 32-bit program crash with 64-bit kernel on AMD boxes (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: reload spec_ctrl cpuid in all microcode load paths (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: Prevent unwanted speculation without IBRS (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: add noibrs noibpb boot options (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] entry: Use retpoline for syscall's indirect calls (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] syscall: Clear unused extra registers on 32-bit compatible syscall entrance (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: rescan cpuid after a late microcode update (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: add debugfs ibrs_enabled ibpb_enabled (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: consolidate the spec control boot detection (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] Remove __cpuinitdata from some data & function (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] KVM/spec_ctrl: allow IBRS to stay enabled in host userland (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: move stuff_RSB in spec_ctrl.h (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] entry: Remove STUFF_RSB in error and interrupt code (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] entry: Stuff RSB for entry to kernel for non-SMEP platform (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] mm: Only set IBPB when the new thread cannot ptrace (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] mm: Set IBPB upon context switch (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] idle: Disable IBRS when offlining cpu and re-enable (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] idle: Disable IBRS entering idle and enable it on wakeup (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: implement spec ctrl C methods (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: save IBRS MSR value in save_paranoid for NMI (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] enter: Use IBRS on syscall and interrupts (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: swap rdx with rsi for nmi nesting detection (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: spec_ctrl_pcp and kaiser_enabled_pcp in same cachline (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] spec_ctrl: use per-cpu knob instead of ALTERNATIVES for ibpb and ibrs (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] enter: MACROS to set/clear IBRS and set IBPB (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [kvm] x86: add SPEC_CTRL to MSR and CPUID lists (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [kvm] svm: add MSR_IA32_SPEC_CTRL and MSR_IA32_PRED_CMD (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] svm: Set IBPB when running a different VCPU (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [kvm] vmx: add MSR_IA32_SPEC_CTRL and MSR_IA32_PRED_CMD (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [kvm] vmx: Set IBPB when running a different VCPU (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [kvm] x86: clear registers on VM exit (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] [kvm] Pad RSB on VM transition (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [security] Add SPEC_CTRL Kconfig option (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] cpu/AMD: Control indirect branch predictor when SPEC_CTRL not available (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] feature: Report presence of IBPB and IBRS control (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] feature: Enable the x86 feature to control Speculation (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] cpuid: Provide get_scattered_cpuid_leaf() (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] cpuid: Cleanup cpuid_regs definitions (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] microcode: Share native MSR accessing variants (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] nop: Make the ASM_NOP* macros work from assembly (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] cpu: Clean up and unify the NOP selection infrastructure (Waiman Long) [1519797 1519796] {CVE-2017-5715}
+- [x86] entry: Further simplify the paranoid_exit code (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] entry: Remove trampoline check from paranoid entry path (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] entry: Don't switch to trampoline stack in paranoid_exit (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] entry: Simplify trampoline stack restore code (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [misc] locking/barriers: prevent speculative execution based on Coverity scan results (Waiman Long) [1519787 1519789] {CVE-2017-5753}
+- [fs] udf: prevent speculative execution (Waiman Long) [1519787 1519789] {CVE-2017-5753}
+- [fs] prevent speculative execution (Waiman Long) [1519787 1519789] {CVE-2017-5753}
+- [scsi] qla2xxx: prevent speculative execution (Waiman Long) [1519787 1519789] {CVE-2017-5753}
+- [netdrv] p54: prevent speculative execution (Waiman Long) [1519787 1519789] {CVE-2017-5753}
+- [netdrv] carl9170: prevent speculative execution (Waiman Long) [1519787 1519789] {CVE-2017-5753}
+- [media] uvcvideo: prevent speculative execution (Waiman Long) [1519787 1519789] {CVE-2017-5753}
+- [x86] cpu/AMD: Remove now unused definition of MFENCE_RDTSC feature (Waiman Long) [1519787 1519789] {CVE-2017-5753}
+- [x86] cpu/AMD: Make the LFENCE instruction serialized (Waiman Long) [1519787 1519789] {CVE-2017-5753}
+- [kernel] locking/barriers: introduce new memory barrier gmb() (Waiman Long) [1519787 1519789] {CVE-2017-5753}
+- [x86] Fix typo preventing msr_set/clear_bit from having an effect (Waiman Long) [1519787 1519789] {CVE-2017-5753}
+- [x86] Add another set of MSR accessor functions (Waiman Long) [1519787 1519789] {CVE-2017-5753}
+- [x86] mm/kaiser: Replace kaiser with kpti to sync with upstream (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: map the trace idt tables in userland shadow pgd (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: add "kaiser" and "nokaiser" boot options (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] kaiser/mm: fix RESTORE_CR3 crash in kaiser_stop_machine (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: use stop_machine for enable/disable knob (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] kaiser/mm: use atomic ops to poison/unpoison user pagetables (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: use invpcid to flush the two kaiser PCID AISD (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: use two PCID ASIDs optimize the TLB during enter/exit kernel (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: stop patching flush_tlb_single (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm: If INVPCID is available, use it to flush global mappings (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: use PCID feature to make user and kernel switches faster (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/64: Initialize CR4.PCIDE early (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm: Add a 'noinvpcid' boot option to turn off INVPCID (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm: Add the 'nopcid' boot option to turn off PCID (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: validate trampoline stack (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] entry: Move SYSENTER_stack to the beginning of struct tss_struct (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: isolate the user mapped per cpu areas (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: selective boot time defaults (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser/xen: Dynamically disable KAISER when running under Xen PV (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: add Kconfig (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: avoid false positives during non-kaiser pgd updates (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: Respect disabled CPU features (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] kaiser/mm: trampoline stack comments (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: stack trampoline (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: re-enable vsyscalls (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: allow to build KAISER with KASRL (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: allow KAISER to be enabled/disabled at runtime (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: un-poison PGDs at runtime (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: add a function to check for KAISER being enabled (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: add debugfs file to turn KAISER on/off at runtime (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: disable native VSYSCALL (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: map virtually-addressed performance monitoring buffers (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: add kprobes text section (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: map trace interrupt entry (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: map entry stack per-cpu areas (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: map dynamically-allocated LDTs (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: make sure static PGDs are 8k in size (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: allow NX poison to be set in p4d/pgd (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: unmap kernel from userspace page tables (core patch) (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: mark per-cpu data structures required for entry/exit (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: introduce user-mapped per-cpu areas (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: add cr3 switches to entry code (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: remove scratch registers (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: prepare assembly for entry/exit CR3 switching (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/kaiser: Disable global pages by default with KAISER (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm: Document X86_CR4_PGE toggling behavior (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm/tlb: Make CR4-based TLB flushes more robust (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm: Do not set _PAGE_USER for init_mm page tables (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] increase robusteness of bad_iret fixup handler (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] mm: Check if PUD is large when validating a kernel address (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] Separate out entry text section (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [include] linux/const.h: Add _BITUL() and _BITULL() (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [include] linux/mmdebug.h: add VM_WARN_ON() and VM_WARN_ON_ONCE() (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [include] stddef.h: Move offsetofend() from vfio.h to a generic kernel header (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+
+* Sun Nov 19 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.18.1.el6]
+- [s390] s390/qdio: clear DSCI prior to scanning multiple input queues (Hendrik Brueckner) [1513314 1467962]
+- [net] sctp: do not loose window information if in rwnd_over (Marcelo Leitner) [1514443 1492220]
+- [net] sctp: fix recovering from 0 win with small data chunks (Marcelo Leitner) [1514443 1492220]
+- [s390] zfcp: fix erp_action use-before-initialize in REC action trace (Hendrik Brueckner) [1512425 1497000]
+- [hv] vmbus: Fix error code returned by vmbus_post_msg() (Vitaly Kuznetsov) [1506145 1491846]
+- [hv] vmbus: Increase the time between retries in vmbus_post_msg() (Vitaly Kuznetsov) [1506145 1491846]
+- [hv] vmbus: Raise retry/wait limits in vmbus_post_msg() (Vitaly Kuznetsov) [1506145 1491846]
+- [hv] vmbus: Reduce the delay between retries in vmbus_post_msg() (Vitaly Kuznetsov) [1506145 1491846]
+- [scsi] be2iscsi: fix bad extern declaration (Maurizio Lombardi) [1507512 1497152]
+- [kernel] mqueue: fix a use-after-free in sys_mq_notify() (Davide Caratti) [1476122 1476124] {CVE-2017-11176}
+- [net] ipv6: accept 64k - 1 packet length in ip6_find_1stfragopt() (Matteo Croce) [1477008 1477006] {CVE-2017-7542}
+- [net] ipv6: avoid overflow of offset in ip6_find_1stfragopt (Matteo Croce) [1477008 1477006] {CVE-2017-7542}
+- [net] ipv6: Fix leak in ipv6_gso_segment() (Sabrina Dubroca) [1502417 1459951] {CVE-2017-9074}
+- [net] gre: fix a possible skb leak (Sabrina Dubroca) [1502417 1459951] {CVE-2017-9074}
+- [net] ipv6: xfrm: Handle errors reported by xfrm6_find_1stfragopt() (Sabrina Dubroca) [1502417 1459951] {CVE-2017-9074}
+- [net] ipv6: Check ip6_find_1stfragopt() return value properly (Sabrina Dubroca) [1502417 1459951] {CVE-2017-9074}
+- [net] ipv6: Prevent overrun when parsing v6 header options (Sabrina Dubroca) [1502417 1459951] {CVE-2017-9074}
+
+* Wed Nov 08 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.17.1.el6]
+- [fs] nfsd: reorder nfsd_cache_match to check more powerful discriminators first (Thiago Becker) [1509876 1435787]
+- [fs] nfsd: split DRC global spinlock into per-bucket locks (Thiago Becker) [1509876 1435787]
+- [fs] nfsd: convert num_drc_entries to an atomic_t (Thiago Becker) [1509876 1435787]
+- [fs] nfsd: remove the cache_hash list (Thiago Becker) [1509876 1435787]
+- [fs] nfsd: convert the lru list into a per-bucket thing (Thiago Becker) [1509876 1435787]
+- [fs] nfsd: clean up drc cache in preparation for global spinlock elimination (Thiago Becker) [1509876 1435787]
 
 * Sun Oct 08 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.16.1.el6]
 - [net] packet: fix tp_reserve race in packet_set_ring (Stefano Brivio) [1481941 1481943] {CVE-2017-1000111}
