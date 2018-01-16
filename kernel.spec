@@ -17,7 +17,7 @@ Summary: The Linux kernel
 #
 # % define buildid .local
 
-%define distro_build 696.18.7
+%define distro_build 696.20.1
 %define signmodules 1
 
 # if patch fuzzy patch applying will be forbidden
@@ -154,7 +154,7 @@ Summary: The Linux kernel
 %endif
 
 # The kernel tarball/base version
-%define kversion 2.6.32-696.18.7.el6
+%define kversion 2.6.32-696.20.1.el6
 
 %define make_target bzImage
 
@@ -544,7 +544,7 @@ BuildConflicts: rhbuildsys(DiskFree) < 7Gb
 %define strip_cmd strip
 %endif
 
-Source0: linux-2.6.32-696.18.7.el6.tar.bz2
+Source0: linux-2.6.32-696.20.1.el6.tar.bz2
 
 Source1: Makefile.common
 
@@ -737,7 +737,7 @@ AutoReqProv: no
 Obsoletes: kabi-whitelists
 Provides: kabi-whitelists
 %description -n kernel-abi-whitelists
-The kABI package contains information pertaining to the CentOS 
+The kABI package contains information pertaining to the CentOS
 Linux kernel ABI, including lists of kernel symbols that are needed by
 external Linux kernel modules, and a yum plugin to aid enforcement.
 
@@ -1740,10 +1740,15 @@ fi
 %endif
 
 %changelog
-* Thu Jan  4 2018 Johnny Hughes <johnny@centos.org> [2.6.32-696.18.7.el6]
+* Thu Jan 25 2018 Johnny Hughes <johnny@centos.org> [2.6.32-696.20.1.el6]
 - Roll in CentOS Branding
 
-* Thu Dec 28 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.18.7.el6]
+* Fri Jan 12 2018 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.20.1.el6]
+- [x86] kaiser/efi: unbreak tboot (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] pti/mm: Fix trampoline stack problem with XEN PV (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] pti/mm: Fix XEN PV boot failure (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] entry: Invoke TRACE_IRQS_IRETQ in paranoid_userspace_restore_all (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+- [x86] spec_ctrl: show added cpuid flags in /proc/cpuinfo after late microcode update (Waiman Long) [1519797 1519796] {CVE-2017-5715}
 - [x86] spec_ctrl: svm: spec_ctrl at vmexit needs per-cpu areas functional (Waiman Long) [1519797 1519796] {CVE-2017-5715}
 - [x86] spec_ctrl: Eliminate redundnat FEATURE Not Present messages (Waiman Long) [1519797 1519796] {CVE-2017-5715}
 - [x86] spec_ctrl: enable IBRS and stuff_RSB before calling NMI C code (Waiman Long) [1519797 1519796] {CVE-2017-5715}
@@ -1760,14 +1765,10 @@ fi
 - [x86] mm/kaiser: Clear kdump pgd page to prevent incorrect behavior (Waiman Long) [1519799 1519802] {CVE-2017-5754}
 - [x86] mm/kaiser: consider the init_mm.pgd a kaiser pgd (Waiman Long) [1519799 1519802] {CVE-2017-5754}
 - [x86] mm/kaiser: convert userland visible "kpti" name to "pti" (Waiman Long) [1519799 1519802] {CVE-2017-5754}
-
-* Wed Dec 20 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.18.6.el6]
 - [x86] spec_ctrl: set IBRS during resume from RAM if ibrs_enabled is 2 (Waiman Long) [1519797 1519796] {CVE-2017-5715}
 - [x86] mm/kaiser: __load_cr3 in resume from RAM after kernel %gs has been restored (Waiman Long) [1519797 1519796] {CVE-2017-5715}
 - [x86] mm/kaiser: Revert the __GFP_COMP flag change (Waiman Long) [1519799 1519802] {CVE-2017-5754}
 - [x86] entry: Fix paranoid_exit() trampoline clobber (Waiman Long) [1519799 1519802] {CVE-2017-5754}
-
-* Tue Dec 19 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.18.5.el6]
 - [x86] spec_ctrl: allow use_ibp_disable only if both SPEC_CTRL and IBPB_SUPPORT are missing (Waiman Long) [1519797 1519796] {CVE-2017-5715}
 - [x86] spec_ctrl: Documentation spec_ctrl.txt (Waiman Long) [1519797 1519796] {CVE-2017-5715}
 - [x86] spec_ctrl: remove irqs_disabled() check from intel_idle() (Waiman Long) [1519797 1519796] {CVE-2017-5715}
@@ -1899,6 +1900,9 @@ fi
 - [include] linux/const.h: Add _BITUL() and _BITULL() (Waiman Long) [1519799 1519802] {CVE-2017-5754}
 - [include] linux/mmdebug.h: add VM_WARN_ON() and VM_WARN_ON_ONCE() (Waiman Long) [1519799 1519802] {CVE-2017-5754}
 - [include] stddef.h: Move offsetofend() from vfio.h to a generic kernel header (Waiman Long) [1519799 1519802] {CVE-2017-5754}
+
+* Thu Dec 21 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.19.1.el6]
+- [scsi] bnx2fc: Fix hung task messages when a cleanup response is not received during abort (Chad Dupuis) [1523783 1504260]
 
 * Sun Nov 19 2017 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.18.1.el6]
 - [s390] s390/qdio: clear DSCI prior to scanning multiple input queues (Hendrik Brueckner) [1513314 1467962]
