@@ -17,7 +17,7 @@ Summary: The Linux kernel
 #
 # % define buildid .local
 
-%define distro_build 696.20.1
+%define distro_build 696.23.1
 %define signmodules 1
 
 # if patch fuzzy patch applying will be forbidden
@@ -154,7 +154,7 @@ Summary: The Linux kernel
 %endif
 
 # The kernel tarball/base version
-%define kversion 2.6.32-696.20.1.el6
+%define kversion 2.6.32-696.23.1.el6
 
 %define make_target bzImage
 
@@ -544,7 +544,7 @@ BuildConflicts: rhbuildsys(DiskFree) < 7Gb
 %define strip_cmd strip
 %endif
 
-Source0: linux-2.6.32-696.20.1.el6.tar.bz2
+Source0: linux-2.6.32-696.23.1.el6.tar.bz2
 
 Source1: Makefile.common
 
@@ -1750,13 +1750,97 @@ fi
 %endif
 
 %changelog
-* Tue Jan 30 2018 ClearFoundation <developer@clearfoundation.com> [2.6.32-696.20.1.clear]
+* Tue Mar 27 2018 ClearFoundation <developer@clearfoundation.com> [2.6.32-696.23.1.clear]
 - Change signing key to ClearOS
 - Add IMQ patch and update kABI accordingly
 - Updated IMQ patch for 2.6.32-431.
 
-* Thu Jan 25 2018 Johnny Hughes <johnny@centos.org> [2.6.32-696.20.1.el6]
+* Tue Mar 13 2018 Johnny Hughes <johnny@centos.org> [2.6.32-696.23.1.el6]
 - Roll in CentOS Branding
+
+* Sat Feb 10 2018 Jan Stancek <jstancek@redhat.com> [2.6.32-696.23.1.el6]
+- [scsi] avoid a permanent stop of the scsi device's request queue (Ewan Milne) [1519857 1513455]
+- [x86] retpoline/hyperv: Convert assembler indirect jumps (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: Upgrade GCC retpoline warning to an error for brew builds (Waiman Long) [1543022 1535645]
+- [x86] retpoline: Don't use kernel indirect thunks in vsyscalls (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: Add a read-only retp_enabled debugfs knob (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: detect unretpolined modules (Waiman Long) [1543022 1535645]
+- [x86] retpoline/ACPI: Convert indirect jump in wakeup code (Waiman Long) [1543022 1535645]
+- [x86] retpoline/efi: Convert stub indirect calls & jumps (Waiman Long) [1543022 1535645]
+- [watchdog] hpwdt: remove indirect call in drivers/watchdog/hpwdt.c (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: cleanup __ptrace_may_access (Waiman Long) [1543022 1535645]
+- [x86] bugs: Drop one "mitigation" from dmesg (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: fix ptrace IBPB optimization (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: Avoid returns in IBRS-disabled regions (Waiman Long) [1543022 1535645]
+- [x86] spectre/meltdown: avoid the vulnerability directory to weaken kernel security (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: Update spec_ctrl.txt and kernel-parameters.txt (Waiman Long) [1543022 1535645]
+- [x86] Use IBRS for firmware update path (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: stuff RSB on context switch with SMEP enabled (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: use upstream RSB stuffing function (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: add ibrs_enabled=3 (ibrs_user) (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: Integrate IBRS with retpoline (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: print features changed by microcode loading (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: refactor the init and microcode loading paths (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: move initialization of X86_FEATURE_IBPB_SUPPORT (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: remove SPEC_CTRL_PCP_IBPB bit (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: remove ibrs_enabled variable (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: add ibp_disabled variable (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: add X86_FEATURE_IBP_DISABLE (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: remove IBP disable for AMD model 0x16 (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: remove performance measurements from documentation (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: make ipbp_enabled read-only (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: remove ibpb_enabled=2 mode (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: Enable spec_ctrl functions for x86-32 (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: move vmexit rmb in the last branch before IBRS (Waiman Long) [1543022 1535645]
+- [x86] spec_ctrl: satisfy the barrier like semantics of IBRS (Waiman Long) [1543022 1535645]
+- [x86] spectre_v1: Mark it as mitigated (Waiman Long) [1543022 1535645]
+- [x86] pti: Do not enable PTI on CPUs which are not vulnerable to Meltdown (Waiman Long) [1543022 1535645]
+- [x86] mce: Make machine check speculation protected (Waiman Long) [1543022 1535645]
+- [x86] retpoline: Add LFENCE to the retpoline/RSB filling RSB macros (Waiman Long) [1543022 1535645]
+- [x86] retpoline: Fill return stack buffer on vmexit (Waiman Long) [1543022 1535645]
+- [x86] retpoline/irq32: Convert assembler indirect jumps (Waiman Long) [1543022 1535645]
+- [x86] retpoline/checksum32: Convert assembler indirect jumps (Waiman Long) [1543022 1535645]
+- [x86] retpoline/entry: Convert entry assembler indirect (Waiman Long) [1543022 1535645]
+- [x86] retpoline/crypto: Convert crypto assembler indirect jumps (Waiman Long) [1543022 1535645]
+- [x86] spectre: Add boot time option to select Spectre v2 mitigation (Waiman Long) [1543022 1535645]
+- [x86] retpoline: Add initial retpoline support (Waiman Long) [1543022 1535645]
+- [x86] cpu: Implement CPU vulnerabilites sysfs functions (Waiman Long) [1543022 1535645]
+- [base] sysfs/cpu: Add vulnerability folder (Waiman Long) [1543022 1535645]
+- [x86] cpufeatures: Add X86_BUG_SPECTRE_V[12] (Waiman Long) [1543022 1535645]
+- [x86] pti: Add the pti= cmdline option and documentation (Waiman Long) [1543022 1535645]
+- [x86] cpufeatures: Add X86_BUG_CPU_MELTDOWN (Waiman Long) [1543022 1535645]
+- [x86] pti: Rename CONFIG_KAISER to CONFIG_PAGE_TABLE_ISOLATION (Waiman Long) [1543022 1535645]
+- [x86] cpu: Expand cpufeature facility to include cpu bugs (Waiman Long) [1543022 1535645]
+- [x86] cpu: Merge bugs.c and bugs_64.c (Waiman Long) [1543022 1535645]
+- [x86] cpu/intel: Introduce macros for Intel family numbers (Waiman Long) [1543022 1535645]
+- [x86] alternatives: Add missing '\n' at end of ALTERNATIVE inline asm (Waiman Long) [1543022 1535645]
+- [x86] alternatives: Fix alt_max_short macro to really be a max() (Waiman Long) [1543022 1535645]
+- [x86] asm: Make asm/alternative.h safe from assembly (Waiman Long) [1543022 1535645]
+- [x86] alternatives: Document macros (Waiman Long) [1543022 1535645]
+- [x86] alternatives: Fix ALTERNATIVE_2 padding generation properly (Waiman Long) [1543022 1535645]
+- [x86] alternatives: Add instruction padding (Waiman Long) [1543022 1535645]
+- [x86] alternative: Add header guards to <asm/alternative-asm.h> (Waiman Long) [1543022 1535645]
+- [x86] alternative: Use .pushsection/.popsection (Waiman Long) [1543022 1535645]
+- [x86] copy_user_generic: Optimize copy_user_generic with CPU erms feature (Waiman Long) [1543022 1535645]
+- [x86] Make .altinstructions bit size neutral (Waiman Long) [1543022 1535645]
+- [x86] pti: Rework the trampoline stack switching code (Waiman Long) [1543022 1535645]
+- [x86] pti: Disable interrupt before trampoline stack switching (Waiman Long) [1543022 1535645]
+
+* Thu Jan 25 2018 Jan Stancek <jstancek@redhat.com> [2.6.32-696.22.1.el6]
+- [mm] add cpu_relax() to "dont return 0 too early" patch (Ian Kent) [1527811 988988]
+- [mm] don't return 0 too early from find_get_pages() (Ian Kent) [1527811 988988]
+- [crypto] cryptd: Add cryptd_max_cpu_qlen module parameter (Jon Maxwell) [1527802 1503322]
+- [powerpc] spinlock: add gmb memory barrier (Mauricio Oliveira) [1531720 1538543]
+- [powerpc] Prevent Meltdown attack with L1-D$ flush (Mauricio Oliveira) [1531720 1538543]
+- [s390] vtime: turn BP on when going idle (Hendrik Brueckner) [1532733 1538542]
+- [s390] cpuinfo: show facilities as reported by stfle (Hendrik Brueckner) [1532733 1538542]
+- [s390] kconfigs: turn off SHARED_KERNEL support for s390 (Hendrik Brueckner) [1532733 1538542]
+- [s390] add ppa to system call and program check path (Hendrik Brueckner) [1532733 1538542]
+- [s390] spinlock: add gmb memory barrier (Hendrik Brueckner) [1532733 1538542]
+- [s390] introduce CPU alternatives (Hendrik Brueckner) [1532733 1538542]
+
+* Fri Jan 19 2018 Jan Stancek <jstancek@redhat.com> [2.6.32-696.21.1.el6]
+- [fs] sunrpc: Revert "sunrpc: always treat the invalid cache as unexpired" (Thiago Becker) [1535938 1532786]
 
 * Fri Jan 12 2018 Denys Vlasenko <dvlasenk@redhat.com> [2.6.32-696.20.1.el6]
 - [x86] kaiser/efi: unbreak tboot (Waiman Long) [1519799 1519802] {CVE-2017-5754}
