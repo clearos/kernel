@@ -1,5 +1,6 @@
 %global __spec_install_pre %{___build_pre}
 
+
 Summary: The Linux kernel
 
 # For a stable, released kernel, released_kernel should be 1. For rawhide
